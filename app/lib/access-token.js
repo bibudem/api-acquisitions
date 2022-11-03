@@ -25,9 +25,7 @@ export class AccessToken {
     expiresAt = null,
     authenticatingInstitutionId = null,
     contextInstitutionId = null,
-    httpClientTimeout = config.get('httpClient.timeout'),
-    proxy = config.get('httpClient.proxy')
-
+    httpClientTimeout = config.get('httpClient.timeout')
   } = {}) {
     this.grantType = grantType;
     this.tokenHost = tokenHost;
@@ -42,11 +40,9 @@ export class AccessToken {
     this.contextInstitutionId = contextInstitutionId;
     this.tokenType = null;
     this.httpClientTimeout = httpClientTimeout;
-    this.proxy = proxy;
     this.cache = new Cache({
       capacity: 1
     })
-    this.client = axios;
   }
 
   async requestAccessToken({ grantType = this.grantType } = {}) {
@@ -58,10 +54,6 @@ export class AccessToken {
     // Token is expired. Need to get a new one
 
     const responsePromise = new Promise((resolve, reject) => {
-
-      const url = new URL(this.tokenHost + this.tokenPath)
-      url.searchParams.set('grant_type', grantType)
-      url.searchParams.set('scope', normalizeScope(this.scope))
 
       axios.post(this.tokenHost + this.tokenPath, {}, {
         params: {
