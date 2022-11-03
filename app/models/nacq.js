@@ -102,8 +102,6 @@ export async function getBatchNacqsFromWMS(oclcNumbers) {
                 }
             }
 
-            console.log('\n')
-
             console.log(`- ${countBibRecords} records found from WMS service.`)
             console.log(`- ${countHoldings} holdings found from WMS service.`)
 
@@ -721,106 +719,146 @@ function getDisciplineByCoteLC(c) {
     let onlyOneLetter = getOnlyOneLetter(cote)
 
     // amenagement 
-    if ((first2Chars == "NA") ||
-        (first2Chars == "NK") || (first2Chars == "SB") ||
-        ((first2Chars >= "TA") && (first2Chars <= "TJ")) ||
-        (first2Chars == "TL") || (first2Chars == "TS") ||
-        (firstLetterBeforeNumber == "T")) {
+    if (
+        first2Chars == "NA" ||
+        first2Chars == "NK" ||
+        first2Chars == "SB" ||
+        first2Chars == "TH"
+    ) {
         return "amenagement"
     }
 
     // anthropologie-demographie-sociologie et sousdisciplines
-    if ((firstLetterBeforeNumber == "H") || (onlyOneLetter == "H") ||
-        ((first2Chars >= "GF") && (first2Chars <= "GT")) ||
-        (first2Chars == "HA") ||
-        ((first2Chars >= "HM") && (first2Chars <= "HT")) ||
-        (first2Chars == "HX")) {
+    if (
+        firstLetterBeforeNumber == "H" ||
+        onlyOneLetter == "H" ||
+        (first2Chars >= "GF" && first2Chars <= "GT") ||
+        first2Chars == "HA" ||
+        (first2Chars >= "HM" && first2Chars <= "HT") ||
+        first2Chars == "HX"
+    ) {
         return "anthropologie-demographie-sociologie"
     }
 
     // art-cinema-musique 
-    if ((firstChar == "M") || (onlyOneLetter == "N") ||
-        (firstLetterBeforeNumber == "N") ||
-        (first2Chars == "AM") || (first2Chars == "PN") ||
-        (first2Chars == "TR") || (first2Chars == "TT") ||
-        ((first2Chars >= "NB") && (first2Chars <= "NE")) ||
-        (first2Chars == "NX")) {
+    if (
+        firstChar == "M" ||
+        onlyOneLetter == "N" ||
+        firstLetterBeforeNumber == "N" ||
+        first2Chars == "AM" ||
+        first2Chars == "PN" ||
+        first2Chars == "TR" ||
+        first2Chars == "TT" ||
+        (first2Chars >= "NB" && first2Chars <= "NE") ||
+        first2Chars == "NX"
+    ) {
         return "art-cinema-musique"
     }
 
     // communication-sciences-information 
-    if ((firstChar == "Z") || (first2Chars == "ZA") ||
-        (first2Chars == "AS") || (first2Chars == "AZ") ||
-        (first2Chars == "P9")) {
+    if (
+        firstChar == "Z" ||
+        first2Chars == "ZA" ||
+        first2Chars == "AS" ||
+        first2Chars == "AZ" ||
+        first2Chars == "P9"
+    ) {
         return "communication-sciences-information"
     }
 
     // criminologie-psychologie-travail-social 
-    if ((first2Chars == "BF") || (first2Chars == "HV")) {
+    if (
+        first2Chars == "BF" ||
+        first2Chars == "HV"
+    ) {
         return "criminologie-psychologie-travail-social"
     }
 
     // droit
-    if (firstChar == "K") {
+    if (
+        firstChar == "K"
+    ) {
         return "droit"
     }
 
     // economie-politique-relations-industrielles
-    if (((first2Chars >= "HB") && (first2Chars <= "HC")) ||
-        ((first2Chars >= "HE") && (first2Chars <= "HJ")) ||
-        (first2Chars == "HD") ||
-        (firstLetterBeforeNumber == "J") ||
-        ((first2Chars >= "JA") && (first2Chars <= "JC")) ||
-        ((first2Chars >= "JF") && (first2Chars <= "JZ")) ||
-        (firstChar == "V") ||
-        (firstChar == "U")) {
+    if (
+        (first2Chars >= "HB" && first2Chars <= "HC") ||
+        (first2Chars >= "HE" && first2Chars <= "HJ") ||
+        first2Chars == "HD" ||
+        firstLetterBeforeNumber == "J" ||
+        (first2Chars >= "JA" && first2Chars <= "JC") ||
+        (first2Chars >= "JF" && first2Chars <= "JZ") ||
+        firstChar == "V" ||
+        firstChar == "U"
+    ) {
         return "economie-politique-relations-industrielles"
     }
 
     // etudes-religieuses-histoire-philosophie
-    if ((firstChar == "C") || (firstChar == "F") || (firstLetterBeforeNumber == "E") ||
-        ((first2Chars >= "DA") && (first2Chars <= "DH")) ||
-        ((first2Chars >= "DJ") && (first2Chars <= "DU")) ||
-        (firstLetterBeforeNumber == "D") || (first2Chars == "DX") ||
-        ((first2Chars >= "BC") && (first2Chars <= "BD")) ||
-        ((first2Chars >= "BH") && (first2Chars <= "BJ")) ||
-        ((first2Chars >= "BL") && (first2Chars <= "BX")) ||
-        (firstLetterBeforeNumber == "B") ||
-        (onlyOneLetter == "B") || (onlyOneLetter == "D") || (onlyOneLetter == "E")) {
+    if (
+        firstChar == "C" ||
+        firstChar == "F" ||
+        firstLetterBeforeNumber == "E" ||
+        (first2Chars >= "DA" && first2Chars <= "DH") ||
+        (first2Chars >= "DJ" && first2Chars <= "DU") ||
+        firstLetterBeforeNumber == "D" ||
+        first2Chars == "DX" ||
+        (first2Chars >= "BC" && first2Chars <= "BD") ||
+        (first2Chars >= "BH" && first2Chars <= "BJ") ||
+        (first2Chars >= "BL" && first2Chars <= "BX") ||
+        firstLetterBeforeNumber == "B" ||
+        onlyOneLetter == "B" ||
+        onlyOneLetter == "D" ||
+        onlyOneLetter == "E"
+    ) {
         return "etudes-religieuses-histoire-philosophie"
     }
 
     // informatique-mathematique-sciences-nature
-    if ((firstLetterBeforeNumber == "Q") || (onlyOneLetter == "Q") ||
-        (firstLetterBeforeNumber == "G") || (onlyOneLetter == "G") ||
-        ((first2Chars >= "GA") && (first2Chars <= "GE")) ||
-        ((first2Chars >= "QA") && (first2Chars <= "QR")) ||
-        (firstLetterBeforeNumber == "S") ||
-        ((first2Chars >= "SD") && (first2Chars <= "SK")) ||
-        (first2Chars == "TK") ||
-        (first2Chars == "TN") ||
-        (first2Chars == "TP")) {
+    if (
+        firstLetterBeforeNumber == "Q" ||
+        onlyOneLetter == "Q" ||
+        firstLetterBeforeNumber == "G" ||
+        onlyOneLetter == "G" ||
+        (first2Chars >= "GA" && first2Chars <= "GE") ||
+        (first2Chars >= "QA" && first2Chars <= "QR") ||
+        firstLetterBeforeNumber == "S" ||
+        (first2Chars >= "SD" && first2Chars <= "SK") ||
+        (first2Chars >= "TA" && first2Chars <= "TG") ||
+        (first2Chars >= "TJ" && first2Chars <= "TP") ||
+        first2Chars == "TS" ||
+        firstLetterBeforeNumber == "T"
+    ) {
         return "informatique-mathematique-sciences-nature"
     }
 
     // langues-litteratures
-    if ((onlyOneLetter == "P") ||
-        ((first2Chars >= "PA") && (first2Chars <= "PM")) ||
-        ((first2Chars >= "PQ") && (first2Chars <= "PZ")) ||
-        ((first2Chars >= "P1") && (first2Chars <= "P8"))) {
+    if (
+        onlyOneLetter == "P" ||
+        (first2Chars >= "PA" && first2Chars <= "PM") ||
+        (first2Chars >= "PQ" && first2Chars <= "PZ") ||
+        (first2Chars >= "P1" && first2Chars <= "P8")
+    ) {
         return "langues-litteratures"
     }
 
     // education-psychoeducation
-    if (firstChar == "L") {
+    if (
+        firstChar == "L"
+    ) {
         return "education-psychoeducation"
     }
 
     // sciences-sante
-    if ((firstChar == "W") || (firstChar == "R") ||
-        (first2Chars == "TX") || (first2Chars == "GV") ||
-        (first2Chars == "SF") ||
-        ((first2Chars >= "QS") && (first2Chars <= "QZ"))) {
+    if (
+        firstChar == "W" ||
+        firstChar == "R" ||
+        first2Chars == "TX" ||
+        first2Chars == "GV" ||
+        first2Chars == "SF" ||
+        (first2Chars >= "QS" && first2Chars <= "QZ")
+    ) {
         return "sciences-sante"
     }
 
