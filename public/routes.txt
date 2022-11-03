@@ -1,0 +1,35 @@
+API for /acquisitions
+
+********************************************
+┌───────────┬───────────────────────────────────────────────────────┐
+│           │ Path                                                  │
+├───────────┼───────────────────────────────────────────────────────┤
+│ undefined │ /acquisitions*                                        │
+├───────────┼───────────────────────────────────────────────────────┤
+│ undefined │ /acquisitions*                                        │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/*                                       │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/home                                    │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/                                        │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/bib/:bib                                │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/discipline/:discipline                  │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/periode/:periode                        │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/bib/:bib/periode/:periode               │
+├───────────┼───────────────────────────────────────────────────────┤
+│ get       │ /acquisitions/discipline/:discipline/periode/:periode │
+└───────────┴───────────────────────────────────────────────────────┘
+
+De plus, à la fin de toutes les  urls, nous pouvons ajouter un paramètre du type "query" pour obtenir la liste dont le nombre d'entrées est limité   par le paramètre "limite":
+
+/acquistions/periode?limite=nombrentrees
+/acquistions/salles/acquisitions/discipline/:discipline-code?limite=nombrentrees
+/acquistions/salles/bib/:bib-id?limite=nombrentrees
+/acquistions/periode/:nombrejours?limite=nombrentrees
+/acquistions/salles/acquisitions/discipline/:discipline-code/periode/:nombrejours?limite=nombrentrees
+/acquistions/salles/bib/:bib-id/periode/:nombrejours?limite=nombrentrees

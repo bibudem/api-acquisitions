@@ -1,0 +1,99 @@
+[
+  {
+    "d": "sciences-sante",
+    "c": [
+      "école de santé publique",
+      "école d'optométrie",
+      "Faculté de médecine",
+      "Faculté de médecine dentaire",
+      "Faculté de pharmacie",
+      "Faculté des sciences infirmières"
+    ]
+  },
+  {
+    "d": "droit",
+    "c": [
+      "Faculté de droit"
+    ]
+  },
+  {
+    "d": "amenagement",
+    "c": [
+      "Faculté de l'aménagement"
+    ]
+  },
+  {
+    "d": "art-cinema-musique",
+    "c": [
+      "Faculté de musique",
+      "Faculté des arts et des sciences. Département d'histoire de l'art et d'études cinématographiques"
+    ]
+  },
+  {
+    "d": "etudes-religieuses-histoire-philosophie",
+    "c": [
+      "Faculté des arts et des sciences. Centre d'études classiques",
+      "Faculté des arts et des sciences. Département de philosophie",
+      "Faculté des arts et des sciences. Département d'histoire",
+      "Faculté des arts et des sciences. Institut d'études religieuses"
+    ]
+  },
+  {
+    "d": "anthropologie-demographie-sociologie",
+    "c": [
+      "Faculté des arts et des sciences. Département d'anthropologie",
+      "Faculté des arts et des sciences. Département de démographie",
+      "Faculté des arts et des sciences. Département de sociologie"
+    ]
+  },
+  {
+    "d": "informatique-mathematique-sciences-nature",
+    "c": [
+      "Faculté des arts et des sciences. Département de chimie",
+      "Faculté des arts et des sciences. Département de géographie",
+      "Faculté des arts et des sciences. Département de mathématiques et de statistique",
+      "Faculté des arts et des sciences. Département de physique",
+      "Faculté des arts et des sciences. Département de sciences biologiques",
+      "Faculté des arts et des sciences. Département d'informatique et de recherche opérationnelle"
+    ]
+  },
+  {
+    "d": "communication-sciences-information",
+    "c": [
+      "Faculté des arts et des sciences. Département de communication",
+      "Faculté des arts et des sciences. école de bibliothéconomie et des sciences de l'information"
+    ]
+  },
+  {
+    "d": "langues-litteratures",
+    "c": [
+      "Faculté des arts et des sciences. Département de linguistique et de traduction",
+      "Faculté des arts et des sciences. Département de littératures et de langues du monde",
+      "Faculté des arts et des sciences. Département des littératures de langue française"
+    ]
+  },
+  {
+    "d": "criminologie-psychologie-travail-social",
+    "c": [
+      "Faculté des arts et des sciences. Département de psychologie",
+      "Faculté des arts et des sciences. école de criminologie",
+      "Faculté des arts et des sciences. école de travail social"
+    ]
+  },
+  {
+    "d": "education-psychoeducation",
+    "c": [
+      "Faculté des arts et des sciences. école de psychoéducation",
+      "Faculté des sciences de l'éducation"
+    ]
+  },
+  {
+    "d": "economie-politique-relations-industrielles",
+    "c": [
+      "Faculté des arts et des sciences. Département de science politique",
+      "Faculté des arts et des sciences. Département de sciences économiques",
+      "Faculté des arts et des sciences. école de relations industrielles",
+      "études internationales"
+    ]
+  }
+]

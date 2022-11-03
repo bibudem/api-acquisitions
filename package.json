@@ -1,0 +1,65 @@
+{
+  "name": "acquisitions",
+  "version": "3.0.0",
+  "description": "Api pour fournir des informations sur les nouvelles acquisitions",
+  "type": "module",
+  "exports": "./index.js",
+  "engines": {
+    "node": ">=16.17.0"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "import-nacqs": "node scripts/import-nacqs-from-WMS.js"
+  },
+  "dependencies": {
+    "@remillc/web-logger": "^0.1.0",
+    "axios": "^1.1.3",
+    "body-parser": "^1.19.0",
+    "camel-case": "^4.1.1",
+    "cli-table": "^0.3.1",
+    "code-bib": "github:bibudem/code-bib",
+    "config": "^3.3.8",
+    "cookie-parser": "~1.3.3",
+    "debug": "^2.2.0",
+    "dot-prop": "^6.0.1",
+    "enum": "^2.5.0",
+    "errorhandler": "^1.4.3",
+    "express": "^4.16.3",
+    "express-mongo-db": "^2.0.3",
+    "is-main": "^0.3.4",
+    "lodash": "^4.17.20",
+    "mongodb": "^2.2.7",
+    "node-global-proxy": "^1.0.1",
+    "progress": "^2.0.3",
+    "query-string": "^6.0.0",
+    "rss": "^1.2.2",
+    "tracer": "^0.8.15",
+    "ttl": "^1.3.1",
+    "yargs": "^16.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "expect": "^1.20.2",
+    "moment": "^2.29.4",
+    "nodemon": "^2.0.20",
+    "pow-mongodb-fixtures": "^0.14.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0",
+    "supertest-session": "^3.0.0"
+  },
+  "author": "Eliana de Mattos Pinto Coelho",
+  "contributors": [
+    {
+      "name": "Christian Rémillard",
+      "email": "christian.remillard@gmail.com"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "Christian Rémillard",
+      "email": "christian.remillard@gmail.com"
+    }
+  ],
+  "license": "ISC"
+}

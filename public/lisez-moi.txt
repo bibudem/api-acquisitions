@@ -1,0 +1,387 @@
+
+                     Fichier lisez-moi.txt de l'API Acquisitions
+                 Direction des bibliothèques, Université de Montréal
+              
+
+== Installation de l'application ==
+
+	1. Régler la variable d'environnement "NODE_ENV" à "production",  "development"
+	2. Exécuter la commande "npm install"
+
+== Exécution ==
+
+	1. Exécuter la commande "node index.js"
+
+== API ==
+
+
+/
+
+	- Retournera l'identification de l'application et l'environnement du serveur.
+
+/acquisitions/lisez-moi.txt
+
+	- Retournera le présent fichier.
+
+/****************************************************************/
+
+/acquisitions
+
+	- Retournera la liste de toutes les nouvelles acquisitions  sous forme d'un tableau JSON.
+
+
+Exemple:
+
+[{
+    "id": "2432258",
+    "sourceid": "UM-ALEPH",
+    "categorielivraison": "physique",
+    "datenouveaute": "2018-09-07T00:00:00.000Z",
+    "langues": ["Anglais", "Chinois"],
+    "type": "livre",
+    "date": "2017",
+    "subjets": ["Chinois (Langue)–Manuels pour anglophones", "Chinois (Langue)–Étude et enseignement–Anglophones"],
+    "editeur": "[Beijing, Chine] : [Higher Education Press]",
+    "titre": "YCT standard course. 1, Activity book",
+    "auteurs": ["Su, Yingxia", "Wang, Lei", "Cai, Nan"],
+    "format": "45 pages : illustrations ; 29 cm..",
+    "descriptions": ["\"Youth Chinese Test (YCT) is an international standardized test of Chinese proficiency, which evaluates the ability of non-native Chinese middle school and primary school students to use the Chinese language in their daily lives and study. With the principle of \"combining testing and teaching, promoting learning and teaching by testing\", Confucius Institute Headquarters (Hanban) and China Higher Education Press too much effort in compiling the YCT standard Course. This series is YCT Standard Course's supplementary activity booklet.\"--Résumé du site web www.chinasprout.com."],
+    "isbns": ["7040482177", "9787040482171"],
+    "images": [],
+    "cotes": ["PL 1129 E5 S829 2017", "PL 1129 E5"],
+    "disciplines": ["Langues et littératures"],
+    "bibs": ["Bibliothèque des lettres et sciences humaines"]
+}, {
+    "id": "2431051",
+    "sourceid": "UM-ALEPH",
+    "categorielivraison": "physique",
+    "datenouveaute": "2018-09-07T00:00:00.000Z",
+    "langues": ["Anglais", "Chinois"],
+    "type": "livre",
+    "date": "2017",
+    "subjets": ["Chinois (Langue)–Manuels pour anglophones", "Chinois (Langue)–Étude et enseignement–Anglophones"],
+    "editeur": "[Beijing, Chine] : [Higher Education Press]",
+    "titre": "YCT standard course. 1, Activity book",
+    "auteurs": ["Su, Yingxia", "Wang, Lei", "Cai, Nan"],
+    "format": "45 pages : illustrations ; 29 cm..",
+    "descriptions": ["\"Youth Chinese Test (YCT) is an international standardized test of Chinese proficiency, which evaluates the ability of non-native Chinese middle school and primary school students to use the Chinese language in their daily lives and study. With the principle of \"combining testing and teaching, promoting learning and teaching by testing\", Confucius Institute Headquarters (Hanban) and China Higher Education Press too much effort in compiling the YCT standard Course. This series is YCT Standard Course's supplementary activity booklet.\"--Résumé du site web www.chinasprout.com."],
+    "isbns": ["7040482177", "9787040482171"],
+    "images": [],
+    "cotes": ["PL 1129 E5 S829 2017", "PL 1129 E5"],
+    "disciplines": ["Langues et littératures"],
+    "bibs": ["Bibliothèque des lettres et sciences humaines"]
+},
+....
+]	
+
+/acquisitions/liste/disciplines
+
+- Retournera  la liste de toutes les disciplines  sous forme d'un objet JSON.
+	
+{
+
+	"keys": [{
+
+		"key": "amenagement",
+
+		"label": "Aménagement"
+
+	}, {
+
+		"key": "anthropologie-demographie-sociologie",
+
+		"label": "Anthropologie, démographie, sociologie"
+
+	}, {
+
+		"key": "art-cinema-musique",
+
+		"label": "Art, cinéma, musique"
+
+	}, {
+
+		"key": "communication-sciences-information",
+
+		"label": "Communication, sciences de l'information"
+
+	}, {
+
+		"key": "criminologie-psychologie-travail-social",
+
+		"label": "Criminologie, psychologie, travail social"
+
+	}, {
+
+		"key": "droit",
+
+		"label": "Droit"
+
+	}, {
+
+		"key": "economie-politique-relations-industrielles",
+
+		"label": "Économie, politique, relations industrielles"
+
+	}, {
+
+		"key": "education-psychoeducation",
+
+		"label": "Éducation, psychoéducation"
+
+	}, {
+
+		"key": "etudes-religieuses-histoire-philosophie",
+
+		"label": "Études religieuses, histoire, philosophie"
+
+	}, {
+
+		"key": "informatique-mathematique-sciences-nature",
+
+		"label": "Informatique, mathématiques, sciences de la nature"
+
+	}, {
+
+		"key": "langues-litteratures",
+
+		"label": "Langues et littératures"
+
+	}, {
+
+		"key": "sciences-sante",
+
+		"label": "Sciences de la santé"
+
+	}]
+
+}
+
+/acquisitions/liste/bibs
+- Retournera  la liste de toutes les bibliothèques sous forme d'un objet JSON.
+
+{
+    "am": {
+        "long": "Bibliothèque d'aménagement",
+        "court": "Aménagement",
+        "url": "amenagement"
+    },
+    "antenne-paramedicale": {
+        "long": "Antenne paramédicale - 7077 avenue du Parc",
+        "court": "7077 avenue du Parc",
+        "url": "7077"
+    },
+    "cartotheque": {
+        "long": "Cartothèque",
+        "court": "Cartothèque",
+        "url": "carthotheque"
+    },
+    "ch": {
+        "long": "Bibliothèque de chimie",
+        "court": "Chimie",
+        "url": "chimie"
+    },
+    "conservation": {
+        "long": "Centre de conservation",
+        "court": "Centre de conservation",
+        "url": "centre-conservation"
+    },
+    "cs": {
+        "long": "Bibliothèque des livres rares et collections spéciales",
+        "court": "Livres rares et collections spéciales",
+        "url": ""
+    },
+    "dr": {
+        "long": "Bibliothèque de droit",
+        "court": "Droit",
+        "url": "droit"
+    },
+    "ed": {
+        "long": "Bibliothèque ÉPC-Biologie",
+        "court": "ÉPC-Biologie",
+        "url": "epc-biologie"
+    },
+    "gp": {
+        "long": "Bibliothèque de géographie",
+        "court": "Géographie",
+        "url": "geographie"
+    },
+    "ki": {
+        "long": "Bibliothèque de kinésiologie",
+        "court": "Kinésiologie",
+        "url": "kinesiologie"
+    },
+    "laval": {
+        "long": "Campus de Laval",
+        "court": "Laval",
+        "url": "laval"
+    },
+    "mi": {
+        "long": "Bibliothèque de mathématiques et informatique",
+        "court": "Math / Info",
+        "url": "mathematiques-informatique"
+    },
+    "mu": {
+        "long": "Bibliothèque de musique",
+        "court": "Musique",
+        "url": "musique"
+    },
+    "mv": {
+        "long": "Bibliothèque de médecine vétérinaire",
+        "court": "Médecine vétérinaire",
+        "url": "medecine-veterinaire"
+    },
+    "pa": {
+        "long": "Bibliothèque paramédicale",
+        "court": "Paramédicale",
+        "url": "paramedicale"
+    },
+    "pb": {
+        "long": "Service du prêt entre bibliothèques",
+        "court": "PEB",
+        "url": ""
+    },
+    "py": {
+        "long": "Bibliothèque de physique",
+        "court": "Physique",
+        "url": "physique"
+    },
+    "sa": {
+        "long": "Bibliothèque de la santé",
+        "court": "Santé",
+        "url": "sante"
+    },
+    "ss": {
+        "long": "Bibliothèque des lettres et sciences humaines",
+        "court": "Lettres et sciences humaines",
+        "url": "lettres-sciences-humaines"
+    },
+    "youville": {
+        "long": "Dépôt Youville",
+        "court": "Youville",
+        "url": ""
+    }
+}
+
+/acquisitions/discipline/:discipline-code
+
+	- Retournera  la liste de toutes les nouvelles acquisitions pour une discipline spécifique  sous forme d'un tableau JSON.
+	  
+Exemple: /acquisitions/discipline/langues-litteratures
+	  
+[{
+    "id": "2432258",
+    "sourceid": "UM-ALEPH",
+    "categorielivraison": "physique",
+    "datenouveaute": "2018-09-07T00:00:00.000Z",
+    "langues": ["Anglais", "Chinois"],
+    "type": "livre",
+    "date": "2017",
+    "subjets": ["Chinois (Langue)–Manuels pour anglophones", "Chinois (Langue)–Étude et enseignement–Anglophones"],
+    "editeur": "[Beijing, Chine] : [Higher Education Press]",
+    "titre": "YCT standard course. 1, Activity book",
+    "auteurs": ["Su, Yingxia", "Wang, Lei", "Cai, Nan"],
+    "format": "45 pages : illustrations ; 29 cm..",
+    "descriptions": ["\"Youth Chinese Test (YCT) is an international standardized test of Chinese proficiency, which evaluates the ability of non-native Chinese middle school and primary school students to use the Chinese language in their daily lives and study. With the principle of \"combining testing and teaching, promoting learning and teaching by testing\", Confucius Institute Headquarters (Hanban) and China Higher Education Press too much effort in compiling the YCT standard Course. This series is YCT Standard Course's supplementary activity booklet.\"--Résumé du site web www.chinasprout.com."],
+    "isbns": ["7040482177", "9787040482171"],
+    "images": [],
+    "cotes": ["PL 1129 E5 S829 2017", "PL 1129 E5"],
+    "disciplines": ["Langues et littératures"],
+    "bibs": ["Bibliothèque des lettres et sciences humaines"]
+}, {
+    "id": "2431051",
+    "sourceid": "UM-ALEPH",
+    "categorielivraison": "physique",
+    "datenouveaute": "2018-09-07T00:00:00.000Z",
+    "langues": ["Anglais", "Chinois"],
+    "type": "livre",
+    "date": "2017",
+    "subjets": ["Chinois (Langue)–Manuels pour anglophones", "Chinois (Langue)–Étude et enseignement–Anglophones"],
+    "editeur": "[Beijing, Chine] : [Higher Education Press]",
+    "titre": "YCT standard course. 1, Activity book",
+    "auteurs": ["Su, Yingxia", "Wang, Lei", "Cai, Nan"],
+    "format": "45 pages : illustrations ; 29 cm..",
+    "descriptions": ["\"Youth Chinese Test (YCT) is an international standardized test of Chinese proficiency, which evaluates the ability of non-native Chinese middle school and primary school students to use the Chinese language in their daily lives and study. With the principle of \"combining testing and teaching, promoting learning and teaching by testing\", Confucius Institute Headquarters (Hanban) and China Higher Education Press too much effort in compiling the YCT standard Course. This series is YCT Standard Course's supplementary activity booklet.\"--Résumé du site web www.chinasprout.com."],
+    "isbns": ["7040482177", "9787040482171"],
+    "images": [],
+    "cotes": ["PL 1129 E5 S829 2017", "PL 1129 E5"],
+    "disciplines": ["Langues et littératures"],
+    "bibs": ["Bibliothèque des lettres et sciences humaines"]
+},
+....
+]	
+
+/****************************************************************/
+	  
+/acquisitions/bib/:bib-id
+
+	- Retournera  la liste de toutes les nouvelles acquisitions pour une bibliothèque spécifique  sous forme d'un tableau JSON.
+	 
+
+Ex: /acquisitions/bib/ss
+
+[{
+    "id": "2432258",
+    "sourceid": "UM-ALEPH",
+    "categorielivraison": "physique",
+    "datenouveaute": "2018-09-07T00:00:00.000Z",
+    "langues": ["Anglais", "Chinois"],
+    "type": "livre",
+    "date": "2017",
+    "subjets": ["Chinois (Langue)–Manuels pour anglophones", "Chinois (Langue)–Étude et enseignement–Anglophones"],
+    "editeur": "[Beijing, Chine] : [Higher Education Press]",
+    "titre": "YCT standard course. 1, Activity book",
+    "auteurs": ["Su, Yingxia", "Wang, Lei", "Cai, Nan"],
+    "format": "45 pages : illustrations ; 29 cm..",
+    "descriptions": ["\"Youth Chinese Test (YCT) is an international standardized test of Chinese proficiency, which evaluates the ability of non-native Chinese middle school and primary school students to use the Chinese language in their daily lives and study. With the principle of \"combining testing and teaching, promoting learning and teaching by testing\", Confucius Institute Headquarters (Hanban) and China Higher Education Press too much effort in compiling the YCT standard Course. This series is YCT Standard Course's supplementary activity booklet.\"--Résumé du site web www.chinasprout.com."],
+    "isbns": ["7040482177", "9787040482171"],
+    "images": [],
+    "cotes": ["PL 1129 E5 S829 2017", "PL 1129 E5"],
+    "disciplines": ["Langues et littératures"],
+    "bibs": ["Bibliothèque des lettres et sciences humaines"]
+}, {
+    "id": "2431051",
+    "sourceid": "UM-ALEPH",
+    "categorielivraison": "physique",
+    "datenouveaute": "2018-09-07T00:00:00.000Z",
+    "langues": ["Anglais", "Chinois"],
+    "type": "livre",
+    "date": "2017",
+    "subjets": ["Chinois (Langue)–Manuels pour anglophones", "Chinois (Langue)–Étude et enseignement–Anglophones"],
+    "editeur": "[Beijing, Chine] : [Higher Education Press]",
+    "titre": "YCT standard course. 1, Activity book",
+    "auteurs": ["Su, Yingxia", "Wang, Lei", "Cai, Nan"],
+    "format": "45 pages : illustrations ; 29 cm..",
+    "descriptions": ["\"Youth Chinese Test (YCT) is an international standardized test of Chinese proficiency, which evaluates the ability of non-native Chinese middle school and primary school students to use the Chinese language in their daily lives and study. With the principle of \"combining testing and teaching, promoting learning and teaching by testing\", Confucius Institute Headquarters (Hanban) and China Higher Education Press too much effort in compiling the YCT standard Course. This series is YCT Standard Course's supplementary activity booklet.\"--Résumé du site web www.chinasprout.com."],
+    "isbns": ["7040482177", "9787040482171"],
+    "images": [],
+    "cotes": ["PL 1129 E5 S829 2017", "PL 1129 E5"],
+    "disciplines": ["Langues et littératures"],
+    "bibs": ["Bibliothèque des lettres et sciences humaines"]
+},
+....
+]	
+
+
+
+À la fin de toutes les  urls, nous pouvons ajouter un paramètre pour obtenir la liste de toutes les nouvelles acquisitions  des derniers nombre de jours indiqué par le paramètre "periode":
+
+/acquisitions?periode=nombrejours
+/acquisitions/acquisitions/discipline/:discipline-code?periode=nombrejours
+/acquisitions/bib/:bib-id?periode=nombrejours
+
+Exemples:
+
+/acquisitions?periode=30
+/acquisitions/discipline/droit?periode=30
+/acquisitions/bib/am?periode=30
+
+De plus, à la fin de toutes les  urls, nous pouvons ajouter un paramètre du type "query" pour obtenir la liste dont le nombre d'entrées est limité   par le paramètre "limite":
+
+/acquisitions/periode?limite=nombrentrees
+/acquisitions/discipline/:discipline-code?limite=nombrentrees
+/acquisitions/bib/:bib-id?limite=nombrentrees
+/acquisitions?periode=nombrejours?limite=nombrentrees
+/acquisitions/discipline/:discipline-code?periode=nombrejours&limite=nombrentrees
+/acquisitions/bib/:bib-id?periode=nombrejours&limite=nombrentrees
+
+
