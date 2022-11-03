@@ -1,7 +1,7 @@
 import fs from 'fs'
 import axios from 'axios'
 import _ from 'lodash'
-import dotProp from 'dot-prop'
+import { getProperty, hasProperty } from 'dot-prop'
 import ProgressBar from 'progress'
 import debugFactory from 'debug'
 import config from 'config'
@@ -149,7 +149,7 @@ export async function getBibRecord({ bibRecord, holding }) {
             record.categorielivraison = getDeliveryCategory(bibRecord.format);
             record.type = getType(bibRecord.format.generalFormat);
 
-            const date = getRecordDate(dotProp.get(bibRecord, 'bibRecord.date.createDate'));
+            const date = getRecordDate(getProperty(bibRecord, 'bibRecord.date.createDate'));
             if (date) {
                 record.date = date;
             }
@@ -563,7 +563,7 @@ const getCotes = function (bibRecord, holdings) {
         const cotes = new Set();
         if (holdings.numberOfHoldings > 0) {
             holdings.detailedHoldings.forEach(holding => {
-                const cote = dotProp.get(holding, 'callNumber.displayCallNumber');
+                const cote = getProperty(holding, 'callNumber.displayCallNumber');
                 if (cote) {
                     cotes.add(cote)
                 }
@@ -574,7 +574,7 @@ const getCotes = function (bibRecord, holdings) {
             return [...cotes.values()]
         }
 
-        if (dotProp.has(bibRecord, 'classification.lc')) {
+        if (hasProperty(bibRecord, 'classification.lc')) {
             return [bibRecord.classification.lc];
         }
 
@@ -939,7 +939,7 @@ const getDisciplines = function (cotes, holding, bibRecord) {
         disciplines.push(...disciplinesByHolding)
     }
 
-    if (dotProp.has(bibRecord, 'contributor.creators')) {
+    if (hasProperty(bibRecord, 'contributor.creators')) {
         // console.log('== has creators')
         const creatorNotes = bibRecord.contributor.creators
             .filter(creator => {

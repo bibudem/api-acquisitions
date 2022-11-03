@@ -4,10 +4,9 @@ import RSS from 'rss'
 import debugFactory from 'debug'
 import config from 'config'
 import messages from '../../config/messages.js'
+import console from './console.js'
 
 const debug = debugFactory('acquisitions:lib:commons')
-
-const console = tracer[config.configLogPourVisualiserObjets.strategy](config.configLogPourVisualiserObjets.setting)
 
 const BIBS = config.BIBS
 const DISCIPLINES = config.DISCIPLINES
@@ -105,7 +104,7 @@ export function traitementMiseAJourUpdate(result) {
 
 // Pour les mises à jour quand rien est fait, mais il n'y a pas d'erreur
 export function traitementMiseAJourUpdateOK(result) {
-	if (result.result.ok == 1) {
+	if (result.acknowledged) {
 		return { msg: messages.get("SUCCES").key };
 	} else {
 		return { msg: messages.get("ECHEC").key };

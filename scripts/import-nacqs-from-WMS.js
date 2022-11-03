@@ -23,7 +23,9 @@ if (config.get('httpClient.proxy')) {
 
 async function run() {
   const oclcNumbersFilePath = config.get('oclcNumbersFilePath');
-  const db = await MongoClient.connect(config.get('mongoDBUrl'), config.get('mongoDBOptions'));
+  const client = new MongoClient(config.get('mongodb.url'))
+  await client.connect()
+  const db = client.db(config.get('mongodb.dbName'));
   const oclcNumbers = await getOclcNumbersFromFile(oclcNumbersFilePath);
   const { finalResults: result, rejected } = await getBatchNacqsFromWMS(oclcNumbers);
   let totalInsertedNacqs = 0;
@@ -46,6 +48,7 @@ async function run() {
 
   const deleteResult = await deleteOldNacqs(db);
 
+  await client.close()
 
   console.log(`${totalInsertedNacqs} records inserted into db.`)
   console.log(`${totalUpdatedNacqs} records updated into db.`)

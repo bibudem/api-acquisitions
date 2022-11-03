@@ -1,6 +1,5 @@
 module.exports = {
 	apiBaseUrl: 'https://api.bib.umontreal.ca/acquisitions/',
-	ssh: false,
 	log: {
 		level: 'log'
 	},

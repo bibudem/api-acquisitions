@@ -15,11 +15,6 @@ module.exports = {
 		dir: 'logs',
 		level: 'debug'
 	},
-	// Pour éviter l'erreur 'MongoError: Topology was destroyed'
-	mongoDBOptions: {
-		reconnectTries: 100, // défaut 5
-		reconnectInterval: 10000 // défaut 5000
-	},
 	oclcAPI: {
 		useCache: true
 	},

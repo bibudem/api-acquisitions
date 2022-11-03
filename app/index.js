@@ -2,7 +2,6 @@ import express from 'express'
 import webLogger from '@remillc/web-logger'
 import expressMongoDb from 'express-mongo-db'
 import nodeGlobalProxy from 'node-global-proxy'
-import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import errorHandler from 'errorhandler'
 import debugFactory from 'debug'
@@ -42,9 +41,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  if (config.ssh) {
-    session.cookie.secure = true
-  }
   // traitement d'erreur en production
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
@@ -73,7 +69,6 @@ if ('development' === app.get('env')) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(`/`, express.static('public'));
 
 //Get db connection in request object
