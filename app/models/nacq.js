@@ -142,7 +142,7 @@ export async function getBibRecord({ bibRecord, holding }) {
             record.id = bibRecord.identifier.oclcNumber;
             record.titre = bibRecord.title.mainTitles[0].text;
 
-            if (typeof bibRecord.contributor.creators !== 'undefined') {
+            if (bibRecord.contributor?.creators) {
                 record.auteurs = getCreators(bibRecord.contributor.creators);
             }
 
