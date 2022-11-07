@@ -64,7 +64,8 @@ export class AccessToken {
           username: this.wskey,
           password: this.wskeySecret
         },
-        timeout: this.httpClientTimeout
+        timeout: this.httpClientTimeout,
+        proxy: false
       })
         .then(response => {
 
@@ -85,11 +86,10 @@ export class AccessToken {
 
           reject(data);
         })
-        .catch((e) => {
+        .catch(error => {
           console.debug('Failed: Could not get a token')
-          console.error(Object.keys(e))
-          console.error(e.response)
-          const reason = new Error('data' in e ? e.data : 'errno' in e ? e.errno : e)
+          console.error(error)
+          const reason = new Error('data' in error ? error.data : 'errno' in error ? error.errno : error)
           reject(reason);
         })
     })

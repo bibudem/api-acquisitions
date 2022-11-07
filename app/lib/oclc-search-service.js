@@ -79,7 +79,8 @@ export class OclcSearchService {
               url: url.href,
               headers: {
                 Authorization: `Bearer ${bearerToken}`
-              }
+              },
+              proxy: false
             }
           );
 
@@ -119,7 +120,8 @@ export class OclcSearchService {
           url: url.href,
           headers: {
             Authorization: `Bearer ${bearerToken}`
-          }
+          },
+          proxy: false
         }
       );
 
