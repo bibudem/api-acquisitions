@@ -30,7 +30,6 @@ async function run() {
   const { finalResults: result, rejected } = await getBatchNacqsFromWMS(oclcNumbers);
   let totalInsertedNacqs = 0;
   let totalUpdatedNacqs = 0;
-  let totalNacqs = 0;
 
   if ((result.length > 0) && db) {
     for (const notice of result) {
@@ -42,7 +41,6 @@ async function run() {
         let result = await updateDisciplines(notice, db)
         totalUpdatedNacqs++
       }
-      totalNacqs++
     }
   }
 

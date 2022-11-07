@@ -4,9 +4,10 @@ import RSS from 'rss'
 import debugFactory from 'debug'
 import config from 'config'
 import messages from '../../config/messages.js'
-import console from './console.js'
 
 const debug = debugFactory('acquisitions:lib:commons')
+
+const console = tracer[config.configLogPourVisualiserObjets.strategy](config.configLogPourVisualiserObjets.setting)
 
 const BIBS = config.BIBS
 const DISCIPLINES = config.DISCIPLINES
