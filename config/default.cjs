@@ -58,10 +58,10 @@ module.exports = {
 		language: 'fr-CA',
 		ttl: '1440' // 24 heures avant de besoin de refraichir
 	},
-	google_analytics: {
+	googleAnalytics: {
 		campagne: '?utm_campaign=Nouveaut%C3%A9s',
-		mediumpage: '&utm_medium=page%20nouveaut%C3%A9s',
-		mediumrss: '&utm_medium=fil%20rss',
+		mediumPage: '&utm_medium=page%20nouveaut%C3%A9s',
+		mediumRss: '&utm_medium=fil%20rss',
 		source: '&utm_source='
 	},
 	BIBS: BIBS,

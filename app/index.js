@@ -1,6 +1,5 @@
 import express from 'express'
 import webLogger from '@remillc/web-logger'
-import expressMongoDb from 'express-mongo-db'
 import nodeGlobalProxy from 'node-global-proxy'
 import bodyParser from 'body-parser'
 import errorHandler from 'errorhandler'
@@ -71,9 +70,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(`/`, express.static('public'));
 
-//Get db connection in request object
-app.use(expressMongoDb(config.get('mongoDBUrl'), config.get('mongoDBOptions')));
-
 app.use(routes);
 
 // catch 404 and forward to error handler
@@ -90,7 +86,7 @@ app.listen(config.get('server.port'), function (err) {
   console.log('Server running at http://localhost:' + config.get('server.port') + ' in ' + process.env.NODE_ENV + ' mode');
 
   // Pour afficher les routes en forme de tableau
-  if (config.afficheRoutes) {
+  if (config.get('afficheRoutes')) {
     listeRoutes(``, routes.stack);
   }
 });

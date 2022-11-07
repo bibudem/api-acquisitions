@@ -1,3 +1,4 @@
 {
-  "ext": ".js,.mjs,.cjs,.json"
+  "ext": ".js,.mjs,.cjs,.json",
+  "watch": "app config"
 }

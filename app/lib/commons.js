@@ -3,15 +3,15 @@ import tracer from 'tracer'
 import RSS from 'rss'
 import debugFactory from 'debug'
 import config from 'config'
+
 import messages from '../../config/messages.js'
+import console from './console.js'
 
 const debug = debugFactory('acquisitions:lib:commons')
 
-const console = tracer[config.configLogPourVisualiserObjets.strategy](config.configLogPourVisualiserObjets.setting)
-
-const BIBS = config.BIBS
-const DISCIPLINES = config.DISCIPLINES
-const PRIMO_LANGUAGES_CODE = config.PRIMO_LANGUAGES_CODE
+const BIBS = config.get('BIBS')
+const DISCIPLINES = config.get('DISCIPLINES')
+const PRIMO_LANGUAGES_CODE = config.get('PRIMO_LANGUAGES_CODE')
 
 
 export function isSuccess(result) {
@@ -129,27 +129,27 @@ export function traitementSuppression(result) {
 }
 
 export function sendError(url, result) {
-	console.error(new Date().toISOString() + " - " + url + " - " + config.httpstatus.SERVERERROR);
-	res.status(config.httpstatus.SERVERERROR);
+	console.error(new Date().toISOString() + " - " + url + " - " + config.get('httpstatus.SERVERERROR'));
+	res.status(config.get('httpstatus.SERVERERROR'));
 	res.send();
 }
 
 export function sendUnprocessable(url, res, result) {
 	console.error(new Date().toISOString() + " - " + url + " - " + result.msg);
-	res.status(config.httpstatus.UNPROCESSABLEENTITY);
+	res.status(config.get('httpstatus.UNPROCESSABLEENTITY'));
 	res.send(result);
 }
 
 export function sendNotFound(url, res) {
 	console.error(new Date().toISOString() + " - " + url + " - " + messages.get("OBJET_EXISTE_PAS").key);
-	res.status(config.httpstatus.NOTFOUND);
+	res.status(config.get('httpstatus.NOTFOUND'));
 	res.send({ msg: messages.get("OBJET_EXISTE_PAS").key });
 }
 
 export function sendNotAuthorized(usager, res) {
 	console.error(new Date().toISOString() + " - " + messages.get("USAGER_NON_AUTHORISE").key)
 	console.error(new Date().toISOString() + " - " + usager)
-	res.status(config.httpstatus.NOTAUTHORIZED);
+	res.status(config.get('httpstatus.NOTAUTHORIZED'));
 	res.send();
 }
 
@@ -178,14 +178,9 @@ export function getRSS(title, nacqs, res) {
 
 	/* lets create an rss feed */
 	var feed = new RSS({
+		...config.get('rss'),
 		title: title,
-		feed_url: config.rss.feed_url,
-		site_url: config.rss.site_url,
-		image_url: config.rss.image_url,
-		copyright: config.rss.copyright,
-		language: config.rss.language,
 		pubDate: new Date().toISOString(),
-		ttl: config.rss.ttl
 	})
 
 	for (let i = 0; i < nacqs.length; i++) {
@@ -291,16 +286,16 @@ export function format(notice) {
 }
 
 export function formatUrlCampagneGAPage(notice, value) {
-	let ajout = config.google_analytics.campagne;
-	ajout += config.google_analytics.mediumpage;
-	notice.url = notice.url + ajout + config.google_analytics.source + value;
+	let ajout = config.get('googleAnalytics.campagne');
+	ajout += config.get('googleAnalytics.mediumPage');
+	notice.url = notice.url + ajout + config.get('googleAnalytics.source') + value;
 	return notice;
 }
 
 export function formatUrlCampagneGARSS(notice, value) {
-	let ajout = config.google_analytics.campagne;
-	ajout += config.google_analytics.mediumrss;
-	notice.url = notice.url + ajout + config.google_analytics.source + value;
+	let ajout = config.get('googleAnalytics.campagne');
+	ajout += config.get('googleAnalytics.mediumRss');
+	notice.url = notice.url + ajout + config.get('googleAnalytics.source') + value;
 	return notice;
 }
 

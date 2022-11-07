@@ -6,6 +6,7 @@ import ProgressBar from 'progress'
 import debugFactory from 'debug'
 import config from 'config'
 
+import { db } from '../db/index.js'
 import { OclcSearchService } from '../lib/oclc-search-service.js'
 import console from '../lib/console.js'
 
@@ -962,7 +963,7 @@ const getDisciplines = function (cotes, holding, bibRecord) {
 
 // return urls de l'image de la couverture (3 formats?)
 export async function getThumbnailLinkFromSyndetics(isbn) {
-    let url = config.syndeticsApi.url + isbn + config.syndeticsApi.params
+    let url = config.get('syndeticsApi.url') + isbn + config.get('syndeticsApi.params')
     try {
         const res = await axios.get(url);
         //console.log("response syndetics", res)
@@ -981,7 +982,7 @@ export async function getThumbnailLinkFromSyndetics(isbn) {
 
 // return urls de l'image de la couverture (3 formats?)
 export async function getThumbnailLinkFromGoogleBooksApi(isbn) {
-    let url = config.googleBooksApi.url + isbn + config.googleBooksApi.params + config.googleBooksApi.cle
+    let url = config.get('googleBooksApi.url') + isbn + config.get('googleBooksApi.params') + config.get('googleBooksApi.key')
     try {
         const res = await axios.get(url);
         if ((res.status == 200) && (res.data.totalItems == 1) && (res.data.items[0].volumeInfo) && (res.data.items[0].volumeInfo.imageLinks)) {
@@ -1006,7 +1007,7 @@ export async function getThumbnailLinkFromAmazonBooksApi(isbn) {
         const instance = axios.create({
             timeout: 2000,
         });
-        const res = await instance.get(config.amazonBooksApi.url + isbn + "._" + config.amazonBooksApi.taille);
+        const res = await instance.get(config.get('amazonBooksApi.url') + isbn + "._" + config.get('amazonBooksApi.taille'));
         if ((res.status == 200) && (res.request.res)) {
             return res.request.res.responseUrl;
         }
@@ -1024,7 +1025,7 @@ export async function getThumbnailLinkFromOpenLibraryCoversApi(isbn) {
     const instance = axios.create({
         timeout: 2000,
     });
-    const res = await instance.get(config.openLibraryCoversApi.url + isbn + config.openLibraryCoversApi.params);
+    const res = await instance.get(config.get('openLibraryCoversApi.url') + isbn + config.get('openLibraryCoversApi.params'));
     if ((res.status == 200) && (res.config) && (res.config.url)) {
         return res.config.url;
     }
@@ -1075,12 +1076,12 @@ async function getLienImage(isbns, type) {
 /*
  * all
  */
-export async function all(db) {
+export async function all() {
     const notices = await db.collection(COLLECTION).find({}, projection).sort(critereSort).toArray()
     return notices
 }
 
-export async function allInDiscipline(discipline, db) {
+export async function allInDiscipline(discipline) {
     const notices = await db.collection(COLLECTION).find({
         disciplines: {
             $elemMatch: {
@@ -1091,7 +1092,7 @@ export async function allInDiscipline(discipline, db) {
     return notices
 }
 
-export async function allInDisciplineFromDateNouveaute(discipline, date, db) {
+export async function allInDisciplineFromDateNouveaute(discipline, date) {
     date = typeof date == "object" ? date : new Date(date)
     const notices = await db.collection(COLLECTION).find({
         disciplines: {
@@ -1106,7 +1107,7 @@ export async function allInDisciplineFromDateNouveaute(discipline, date, db) {
     return notices
 }
 
-export async function allInBib(bib, db) {
+export async function allInBib(bib) {
     const notices = await db.collection(COLLECTION).find({
         bibs: {
             $elemMatch: {
@@ -1117,7 +1118,7 @@ export async function allInBib(bib, db) {
     return notices
 }
 
-export async function allInBibFromDateNouveaute(bib, date, db) {
+export async function allInBibFromDateNouveaute(bib, date) {
     date = typeof date == "object" ? date : new Date(date)
     const notices = await db.collection(COLLECTION).find({
         bibs: {
@@ -1132,7 +1133,7 @@ export async function allInBibFromDateNouveaute(bib, date, db) {
     return notices
 }
 
-export async function allFromDateNouveaute(date, db) {
+export async function allFromDateNouveaute(date) {
     date = typeof date == "object" ? date : new Date(date)
     debug("allFromDateNouveaute", date)
     const notices = await db.collection(COLLECTION).find({
@@ -1143,7 +1144,7 @@ export async function allFromDateNouveaute(date, db) {
     return notices
 }
 
-export async function one(id, db) {
+export async function one(id) {
     const notice = await db.collection(COLLECTION).findOne({
         id: id
     }, projection);
@@ -1154,33 +1155,29 @@ export async function one(id, db) {
  * insert
  * Insertion d'une nouvelle acquisition
  */
-export async function insert(nacq, db) {
+export async function insert(nacq) {
 
     try {
-        if (db) {
-            const result = await db.collection(COLLECTION).findOne({
-                id: nacq.id
-            })
-            if (result) {
-                return {
-                    msg: messages.get("OBJET_EXISTE").key
-                }
+        const result = await db.collection(COLLECTION).findOne({
+            id: nacq.id
+        })
+        if (result) {
+            return {
+                msg: messages.get("OBJET_EXISTE").key
+            }
+        } else {
+            nacq.datenouveaute = new Date()
+            nacq.datenouveaute.setUTCHours(0, 0, 0, 0)
+            const result2 = await db.collection(COLLECTION).insertOne(nacq)
+            //console.log("result2", result2.insertedId)
+            //console.log("db", db)
+            if (result2) {
+                return traitementInsertion(result2);
             } else {
-                nacq.datenouveaute = new Date()
-                nacq.datenouveaute.setUTCHours(0, 0, 0, 0)
-                const result2 = await db.collection(COLLECTION).insertOne(nacq)
-                //console.log("result2", result2.insertedId)
-                //console.log("db", db)
-                if (result2) {
-                    return traitementInsertion(result2);
-                } else {
-                    console.log("result insertion problematique", nacq)
-                    return { msg: messages.get("ERREUR") }
-                }
+                console.log("result insertion problematique", nacq)
+                return { msg: messages.get("ERREUR") }
             }
         }
-        console.error(new Date().toISOString() + " - " + "bd undefined", db)
-        return { msg: messages.get("ERREUR") }
     } catch (e) {
         console.error(e)
         console.error(nacq)
@@ -1189,7 +1186,7 @@ export async function insert(nacq, db) {
 }
 
 
-export async function del(id, db) {
+export async function del(id) {
     const result = await db.collection(COLLECTION).findOne({
         id: id
     }, projection);
@@ -1215,7 +1212,7 @@ export async function del(id, db) {
 /*
  * deleteOldNacqs
  */
-export async function deleteOldNacqs(db, ttl = config.get('nacqsTtl')) {
+export async function deleteOldNacqs(ttl = config.get('nacqsTtl')) {
     const dateNouveaute = new Date();
     dateNouveaute.setDate(dateNouveaute.getDate() - ttl);
     debug("deleteBeforeDateNouveaut")
@@ -1233,26 +1230,24 @@ export async function deleteOldNacqs(db, ttl = config.get('nacqsTtl')) {
 /*
  * updateDisciplines
  */
-export async function updateDisciplines(nacq, db) {
+export async function updateDisciplines(nacq) {
     debug("updatedisciplines", nacq)
     try {
-        if (db) {
-            const existedeja = await db.collection(COLLECTION).findOne({
+        const existedeja = await db.collection(COLLECTION).findOne({
+            id: nacq.id
+        })
+        if (existedeja) {
+            const result = await db.collection(COLLECTION).updateOne({
                 id: nacq.id
-            })
-            if (existedeja) {
-                const result = await db.collection(COLLECTION).updateOne({
-                    id: nacq.id
-                }, { $set: { disciplines: nacq.disciplines }, $currentDate: { datederniermiseajour: true } })
-                //debug("result mise à jour", result)
-                if (result) {
-                    return traitementMiseAJourUpdateOK(result)
-                }
-            } else {
-                return traitementErreur("NON_DISPONIBLE");
+            }, { $set: { disciplines: nacq.disciplines }, $currentDate: { datederniermiseajour: true } })
+            //debug("result mise à jour", result)
+            if (result) {
+                return traitementMiseAJourUpdateOK(result)
             }
+        } else {
+            return traitementErreur("NON_DISPONIBLE");
         }
-        console.error(new Date().toISOString() + " - " + "bd undefined", db)
+
         return { msg: messages.get("ERREUR") }
     } catch (e) {
         console.error(e)

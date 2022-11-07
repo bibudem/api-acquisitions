@@ -1,12 +1,10 @@
-import mongodbPkg from 'mongodb'
 import nodeGlobalProxy from 'node-global-proxy'
 import config from 'config'
 
+import { client } from '../app/db/index.js'
 import { getOclcNumbersFromFile, getBatchNacqsFromWMS, insert, updateDisciplines, deleteOldNacqs } from '../app/models/nacq.js'
 import { isSuccess } from '../app/lib/commons.js'
 import console from '../app/lib/console.js'
-
-const { MongoClient } = mongodbPkg
 
 const proxy = nodeGlobalProxy.default
 
@@ -22,29 +20,26 @@ if (config.get('httpClient.proxy')) {
 }
 
 async function run() {
-  const oclcNumbersFilePath = config.get('oclcNumbersFilePath');
-  const client = new MongoClient(config.get('mongodb.url'))
-  await client.connect()
-  const db = client.db(config.get('mongodb.dbName'));
+  const oclcNumbersFilePath = config.get('oclcNumbersFilePath')
   const oclcNumbers = await getOclcNumbersFromFile(oclcNumbersFilePath);
   const { finalResults: result, rejected } = await getBatchNacqsFromWMS(oclcNumbers);
   let totalInsertedNacqs = 0;
   let totalUpdatedNacqs = 0;
 
-  if ((result.length > 0) && db) {
+  if (result.length > 0) {
     for (const notice of result) {
       // console.log(notice)
-      let result = await insert(notice, db)
+      let result = await insert(notice)
       if (isSuccess(result)) {
         totalInsertedNacqs++
       } else {
-        let result = await updateDisciplines(notice, db)
+        let result = await updateDisciplines(notice)
         totalUpdatedNacqs++
       }
     }
   }
 
-  const deleteResult = await deleteOldNacqs(db);
+  const deleteResult = await deleteOldNacqs();
 
   await client.close()
 

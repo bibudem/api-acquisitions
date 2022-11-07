@@ -58,11 +58,11 @@ Liste de bibliothèques et de champs disciplinaires
 ************************************************************************************/
 
 router.get('/liste/bibs', function (req, res) {
-	res.send(config.BIBS)
+	res.send(config.get('BIBS'))
 })
 
 router.get('/liste/disciplines', function (req, res) {
-	res.send(config.DISCIPLINES)
+	res.send(config.get('DISCIPLINES'))
 })
 
 

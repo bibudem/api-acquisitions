@@ -16,10 +16,10 @@ export async function GetNacqs(req, res) {
 		debug(periode)
 		debug(typeof periode)
 		let date = periode2Date(periode)
-		nacqs = await allFromDateNouveaute(date, req.db)
+		nacqs = await allFromDateNouveaute(date)
 
 	} else {
-		nacqs = await all(req.db)
+		nacqs = await all()
 	} const limite = req.query.limite
 	nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
 	sendResults(req.originalUrl, res, nacqs);
@@ -33,14 +33,14 @@ export async function GetNacqsRSS(req, res) {
 		debug(periode)
 		debug(typeof periode)
 		let date = periode2Date(periode)
-		nacqs = await allFromDateNouveaute(date, req.db)
+		nacqs = await allFromDateNouveaute(date)
 
 	} else {
-		nacqs = await all(req.db)
+		nacqs = await all()
 	}
 	const limite = req.query.limite
 	nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
-	sendXMLResults(req.originalUrl, res, config.rss.title, nacqs)
+	sendXMLResults(req.originalUrl, res, config.get('rss.title'), nacqs)
 }
 
 export async function GetNacqsInBib(req, res) {
@@ -50,10 +50,10 @@ export async function GetNacqsInBib(req, res) {
 		debug(periode)
 		debug(typeof periode)
 		let date = periode2Date(periode)
-		nacqs = await allInBibFromDateNouveaute(req.params.bib, date, req.db)
+		nacqs = await allInBibFromDateNouveaute(req.params.bib, date)
 
 	} else {
-		nacqs = await allInBib(req.params.bib, req.db)
+		nacqs = await allInBib(req.params.bib)
 	}
 	const limite = req.query.limite
 	nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
@@ -71,10 +71,10 @@ export async function GetNacqsRSSInBib(req, res) {
 		debug(periode)
 		debug(typeof periode)
 		let date = periode2Date(periode)
-		nacqs = await allInBibFromDateNouveaute(req.params.bib, date, req.db)
+		nacqs = await allInBibFromDateNouveaute(req.params.bib, date)
 
 	} else {
-		nacqs = await allInBib(req.params.bib, req.db)
+		nacqs = await allInBib(req.params.bib)
 	}
 	const limite = req.query.limite
 	nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
@@ -82,24 +82,23 @@ export async function GetNacqsRSSInBib(req, res) {
 		nacqs[i] = formatUrlCampagneGARSS(nacqs[i], req.params.bib)
 	}
 	nacqs = nacqs.map(format)
-	let title = getBibName(req.params.bib) + " - Nouveautés" + config.rss.title;
+	let title = getBibName(req.params.bib) + " - Nouveautés" + config.get('rss.title');
 	sendXMLResults(req.originalUrl, res, title, nacqs)
 }
 
 export async function GetNacqsInDiscipline(req, res) {
 	try {
 		let periode = req.query.periode
-		console.log(periode)
 		let nacqs
 		if (periode && periode.match(/^[0-9]{1,2}$/)) {
 			console.log("periode valide")
 			debug(periode)
 			debug(typeof periode)
 			let date = periode2Date(periode)
-			nacqs = await allInDisciplineFromDateNouveaute(req.params.discipline, date, req.db)
+			nacqs = await allInDisciplineFromDateNouveaute(req.params.discipline, date)
 
 		} else {
-			nacqs = await allInDiscipline(req.params.discipline, req.db)
+			nacqs = await allInDiscipline(req.params.discipline)
 		}
 		const limite = req.query.limite
 		nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
@@ -123,10 +122,10 @@ export async function GetNacqsRSSInDiscipline(req, res) {
 			debug(periode)
 			debug(typeof periode)
 			let date = periode2Date(periode)
-			nacqs = await allInDisciplineFromDateNouveaute(req.params.discipline, date, req.db)
+			nacqs = await allInDisciplineFromDateNouveaute(req.params.discipline, date)
 
 		} else {
-			nacqs = await allInDiscipline(req.params.discipline, req.db)
+			nacqs = await allInDiscipline(req.params.discipline)
 		}
 		const limite = req.query.limite
 		nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
@@ -134,7 +133,7 @@ export async function GetNacqsRSSInDiscipline(req, res) {
 			nacqs[i] = formatUrlCampagneGARSS(nacqs[i], req.params.discipline)
 		}
 		nacqs = nacqs.map(format)
-		let title = "Nouveautés en " + getDisciplineName(req.params.discipline) + config.rss.title;
+		let title = "Nouveautés en " + getDisciplineName(req.params.discipline) + config.get('rss.title');
 		sendXMLResults(req.originalUrl, res, title, nacqs)
 	} catch (e) {
 		console.error(new Date().toISOString() + " - " + "Erreur function GetNacqsRSSInDiscipline " + req.params.discipline)
