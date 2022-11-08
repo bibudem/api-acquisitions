@@ -22,7 +22,7 @@
     "config": "^3.3.8",
     "debug": "^4.3.4",
     "dot-prop": "^7.2.0",
-    "enum": "^2.5.0",
+    "enum": "^3.0.4",
     "errorhandler": "^1.5.1",
     "express": "^4.18.2",
     "is-main": "^0.3.4",
