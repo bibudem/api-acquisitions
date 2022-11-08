@@ -5,7 +5,7 @@
 
 == Installation de l'application ==
 
-	1. Régler la variable d'environnement "NODE_ENV" à "production",  "development"
+	1. Régler la variable d'environnement "NODE_ENV" à "production", "development"
 	2. Exécuter la commande "npm install"
 
 == Exécution ==
@@ -27,7 +27,7 @@
 
 /acquisitions
 
-	- Retournera la liste de toutes les nouvelles acquisitions  sous forme d'un tableau JSON.
+	- Retournera la liste de toutes les nouvelles acquisitions sous forme d'un tableau JSON.
 
 
 Exemple:
@@ -76,7 +76,7 @@ Exemple:
 
 /acquisitions/liste/disciplines
 
-- Retournera  la liste de toutes les disciplines  sous forme d'un objet JSON.
+- Retournera la liste de toutes les disciplines sous forme d'un objet JSON.
 	
 {
 
@@ -264,7 +264,7 @@ Exemple:
 
 /acquisitions/discipline/:discipline-code
 
-	- Retournera  la liste de toutes les nouvelles acquisitions pour une discipline spécifique  sous forme d'un tableau JSON.
+	- Retournera la liste de toutes les nouvelles acquisitions pour une discipline spécifique sous forme d'un tableau JSON.
 	  
 Exemple: /acquisitions/discipline/langues-litteratures
 	  
@@ -314,7 +314,7 @@ Exemple: /acquisitions/discipline/langues-litteratures
 	  
 /acquisitions/bib/:bib-id
 
-	- Retournera  la liste de toutes les nouvelles acquisitions pour une bibliothèque spécifique  sous forme d'un tableau JSON.
+	- Retournera la liste de toutes les nouvelles acquisitions pour une bibliothèque spécifique sous forme d'un tableau JSON.
 	 
 
 Ex: /acquisitions/bib/ss
@@ -363,7 +363,7 @@ Ex: /acquisitions/bib/ss
 
 
 
-À la fin de toutes les  urls, nous pouvons ajouter un paramètre pour obtenir la liste de toutes les nouvelles acquisitions  des derniers nombre de jours indiqué par le paramètre "periode":
+À la fin de toutes les urls, nous pouvons ajouter un paramètre pour obtenir la liste de toutes les nouvelles acquisitions  des derniers nombre de jours indiqué par le paramètre "periode":
 
 /acquisitions?periode=nombrejours
 /acquisitions/acquisitions/discipline/:discipline-code?periode=nombrejours
