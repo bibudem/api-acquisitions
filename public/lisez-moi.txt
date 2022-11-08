@@ -375,7 +375,7 @@ Exemples:
 /acquisitions/discipline/droit?periode=30
 /acquisitions/bib/am?periode=30
 
-De plus, à la fin de toutes les  urls, nous pouvons ajouter un paramètre du type "query" pour obtenir la liste dont le nombre d'entrées est limité   par le paramètre "limite":
+De plus, à la fin de toutes les urls, nous pouvons ajouter un paramètre du type "query" pour obtenir la liste dont le nombre d'entrées est limité par le paramètre "limite":
 
 /acquisitions/periode?limite=nombrentrees
 /acquisitions/discipline/:discipline-code?limite=nombrentrees
