@@ -1,6 +1,6 @@
 {
   "name": "acquisitions",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Api pour fournir des informations sur les nouvelles acquisitions",
   "type": "module",
   "exports": "./index.js",
