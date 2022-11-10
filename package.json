@@ -38,6 +38,8 @@
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
+  "repository": "https://github.com/bibudem/api-acquisitions",
+  "bugs": "https://github.com/bibudem/api-acquisitions/issues",
   "author": "Eliana de Mattos Pinto Coelho",
   "contributors": [
     {
@@ -51,5 +53,5 @@
       "email": "christian.remillard@gmail.com"
     }
   ],
-  "license": "ISC"
+  "license": "MIT"
 }
