@@ -102,9 +102,6 @@ export async function GetNacqsInDiscipline(req, res) {
 		}
 		const limite = req.query.limite
 		nacqs = (limite && limite.match(/^[0-9]+$/) && (nacqs.length > limite)) ? nacqs.slice(0, limite) : nacqs
-		for (let i = 0; i < nacqs.length; i++) {
-			nacqs[i] = formatUrlCampagneGAPage(nacqs[i], req.params.discipline)
-		}
 		nacqs = nacqs.map(format)
 		sendResults(req.originalUrl, res, nacqs);
 	} catch (e) {
