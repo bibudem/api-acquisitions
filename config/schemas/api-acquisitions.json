@@ -1,424 +1,459 @@
 {
-    "openapi": "3.0.3",
-    "x-stoplight": {
-        "id": "snkgxctdxuqc9"
+  "openapi": "3.0.3",
+  "x-stoplight": {
+    "id": "snkgxctdxuqc9"
+  },
+  "info": {
+    "title": "API des nouvelles acquisitions",
+    "version": "4.0.0",
+    "description": "API REST pour les nouvelles acquisitions des Bibliothèques de l'Université de Montréal",
+    "contact": {
+      "name": "Christian Rémillard",
+      "url": "https://github.com/bibudem/api-acquisitions",
+      "email": "christian.remillard@umontreal.ca"
     },
-    "info": {
-        "title": "API des nouvelles acquisitions",
-        "version": "4.0.0",
-        "description": "API REST pour les nouvelles acquisitions des Bibliothèques de l'Université de Montréal",
-        "contact": {
-            "name": "Christian Rémillard",
-            "url": "https://github.com/bibudem/api-acquisitions",
-            "email": "christian.remillard@umontreal.ca"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        }
-    },
-    "paths": {
-        "/": {
-            "get": {
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/limite"
-                    },
-                    {
-                        "name": "discipline",
-                        "description": "Code de discipline",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "query",
-                        "required": false
-                    },
-                    {
-                        "$ref": "#/components/parameters/periode"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/acquisitionsList"
-                                }
-                            }
-                        },
-                        "description": "Une liste de disciplines"
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {}
-                        },
-                        "description": "bad input parameter"
-                    }
-                },
-                "operationId": "get",
-                "summary": "searches inventory",
-                "description": "Recherche des nouvelles acquisitions en filtrant par limite, discipline ou période.\n"
-            }
-        },
-        "/about": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "type": "string"
-                                },
-                                "examples": {
-                                    "Example 1": {
-                                        "value": "api-acquisitions v4.0.0 (development)"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Ok"
-                    }
-                },
-                "operationId": "about",
-                "description": "Affiche le nom, la version et l'environnement d'exécution de l'API"
-            }
-        },
-        "/discipline/{discipline}": {
-            "parameters": [
-                {
-                    "schema": {
-                        "type": "string"
-                    },
-                    "name": "discipline",
-                    "in": "path",
-                    "required": true
-                }
-            ],
-            "get": {
-                "summary": "Your GET endpoint",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/acquisitionsList"
-                                }
-                            }
-                        }
-                    }
-                },
-                "operationId": "getByDisciplineOld",
-                "deprecated": true,
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/limite"
-                    },
-                    {
-                        "$ref": "#/components/parameters/periode"
-                    }
-                ],
-                "description": "Retourne une liste d'acquisitions pour une discipline donnée."
-            }
-        },
-        "/disciplines/{discipline}": {
-            "summary": "Liste les nouvelles acquisitions pour une discipline",
-            "get": {
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/limite"
-                    },
-                    {
-                        "$ref": "#/components/parameters/periode"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/acquisitionsList"
-                                }
-                            }
-                        },
-                        "description": "Une liste de nouvelles acquisitions pour une discipline donnée."
-                    }
-                },
-                "summary": "",
-                "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
-                "operationId": "getByDiscipline"
-            },
-            "parameters": [
-                {
-                    "$ref": "#/components/parameters/discipline"
-                }
-            ]
-        },
-        "/liste/disciplines": {
-            "get": {
-                "summary": "Your GET endpoint",
-                "operationId": "getListeDisciplines",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/disciplinesMap"
-                                },
-                                "examples": {
-                                    "Example 1": {
-                                        "value": {
-                                            "keys": [
-                                                {
-                                                    "key": "amenagement",
-                                                    "label": "Aménagement"
-                                                },
-                                                {
-                                                    "key": "anthropologie-demographie-sociologie",
-                                                    "label": "Anthropologie, démographie, sociologie"
-                                                },
-                                                {
-                                                    "key": "art-cinema-musique",
-                                                    "label": "Art, cinéma, musique"
-                                                },
-                                                {
-                                                    "key": "communication-sciences-information",
-                                                    "label": "Communication, sciences de l'information"
-                                                },
-                                                {
-                                                    "key": "criminologie-psychologie-travail-social",
-                                                    "label": "Criminologie, psychologie, travail social"
-                                                },
-                                                {
-                                                    "key": "droit",
-                                                    "label": "Droit"
-                                                },
-                                                {
-                                                    "key": "economie-politique-relations-industrielles",
-                                                    "label": "Économie, politique, relations industrielles"
-                                                },
-                                                {
-                                                    "key": "education-psychoeducation",
-                                                    "label": "Éducation, psychoéducation"
-                                                },
-                                                {
-                                                    "key": "etudes-religieuses-histoire-philosophie",
-                                                    "label": "Études religieuses, histoire, philosophie"
-                                                },
-                                                {
-                                                    "key": "informatique-mathematique-sciences-nature",
-                                                    "label": "Informatique, mathématiques, sciences de la nature"
-                                                },
-                                                {
-                                                    "key": "langues-litteratures",
-                                                    "label": "Langues et littératures"
-                                                },
-                                                {
-                                                    "key": "sciences-sante",
-                                                    "label": "Sciences de la santé"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "description": "Retourne la liste des codes de disciplines"
-            },
-            "parameters": []
-        }
-    },
-    "components": {
-        "schemas": {
-            "acquisition": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "titre": {
-                        "type": "string"
-                    },
-                    "auteurs": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "href": {
-                        "type": "string"
-                    },
-                    "disciplines": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/disciplineKey"
-                        }
-                    },
-                    "categorielivraison": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string"
-                    },
-                    "editeur": {
-                        "type": "string"
-                    },
-                    "cotes": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "format": {
-                        "type": "string"
-                    },
-                    "isbns": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "image": {
-                        "type": "string"
-                    },
-                    "datenouveaute": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "datenouveaute"
-                ]
-            },
-            "acquisitionsList": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/components/schemas/acquisition"
-                },
-                "title": "Une liste d'acquisitions",
-                "description": "Une liste d'acquisitions",
-                "x-stoplight": {
-                    "id": "43fa112ecdcb9"
-                }
-            },
-            "discipline": {
-                "title": "Une discipline",
-                "description": "Une discipline",
-                "required": [
-                    "key",
-                    "label"
-                ],
-                "type": "object",
-                "properties": {
-                    "key": {
-                        "$ref": "#/components/schemas/disciplineKey"
-                    },
-                    "label": {
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "key": "amenagement",
-                    "label": "Aménagement"
-                }
-            },
-            "disciplineKey": {
-                "type": "string",
-                "example": "amenagement",
-                "pattern": "^[a-z-]+",
-                "enum": [
-                    "amenagement",
-                    "anthropologie-demographie-sociologie",
-                    "art-cinema-musique",
-                    "communication-sciences-information",
-                    "criminologie-psychologie-travail-social",
-                    "droit",
-                    "economie-politique-relations-industrielles",
-                    "education-psychoeducation",
-                    "etudes-religieuses-histoire-philosophie",
-                    "informatique-mathematique-sciences-nature",
-                    "langues-litteratures",
-                    "sciences-sante"
-                ]
-            },
-            "disciplinesMap": {
-                "type": "object",
-                "description": "Un objet contenant une liste de codes de disciplines.",
-                "additionalProperties": false,
-                "minProperties": 1,
-                "maxProperties": 1,
-                "properties": {
-                    "keys": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/discipline"
-                        }
-                    }
-                },
-                "required": [
-                    "keys"
-                ],
-                "x-stoplight": {
-                    "id": "5c5a71e5535b7"
-                }
-            }
-        },
-        "responses": {},
-        "parameters": {
-            "limite": {
-                "name": "limite",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "integer",
-                    "maximum": 1000,
-                    "default": 100,
-                    "example": 10,
-                    "minimum": 0
-                },
-                "description": "Nombre maximum d'items à retourner"
-            },
-            "periode": {
-                "name": "periode",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "integer",
-                    "default": 10,
-                    "maximum": 30,
-                    "example": 10,
-                    "minimum": 1
-                },
-                "description": "La période en jours"
-            },
-            "discipline": {
-                "name": "discipline",
-                "in": "path",
-                "required": true,
-                "schema": {
-                    "type": "string",
-                    "pattern": "^[a-z-]+",
-                    "enum": [
-                        "amenagement",
-                        "anthropologie-demographie-sociologie",
-                        "art-cinema-musique",
-                        "communication-sciences-information",
-                        "criminologie-psychologie-travail-social",
-                        "droit",
-                        "economie-politique-relations-industrielles",
-                        "education-psychoeducation",
-                        "etudes-religieuses-histoire-philosophie",
-                        "informatique-mathematique-sciences-nature",
-                        "langues-litteratures",
-                        "sciences-sante"
-                    ]
-                },
-                "description": "Le code de discipline"
-            }
-        },
-        "securitySchemes": {}
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limite"
+          },
+          {
+            "name": "discipline",
+            "description": "Code de discipline",
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/periode"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/acquisitionsList"
+                }
+              }
+            },
+            "description": "Une liste de disciplines"
+          },
+          "400": {
+            "content": {
+              "application/json": {}
+            },
+            "description": "bad input parameter"
+          }
+        },
+        "operationId": "get",
+        "summary": "searches inventory",
+        "description": "Recherche des nouvelles acquisitions en filtrant par limite, discipline ou période.\n"
+      }
+    },
+    "/about": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": "api-acquisitions v4.0.0 (development)"
+                  }
+                }
+              }
+            },
+            "description": "Ok"
+          }
+        },
+        "operationId": "about",
+        "description": "Affiche le nom, la version et l'environnement d'exécution de l'API"
+      }
+    },
+    "/discipline/{discipline}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "discipline",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/acquisitionsList"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getByDisciplineOld",
+        "deprecated": true,
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limite"
+          },
+          {
+            "$ref": "#/components/parameters/periode"
+          }
+        ],
+        "description": "Retourne une liste d'acquisitions pour une discipline donnée."
+      }
+    },
+    "/disciplines/{discipline}{ext}": {
+      "summary": "Liste les nouvelles acquisitions pour une discipline",
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limite"
+          },
+          {
+            "$ref": "#/components/parameters/periode"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/acquisitionsList"
+                }
+              },
+              "application/rss+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Une liste de nouvelles acquisitions pour une discipline donnée."
+          }
+        },
+        "summary": "",
+        "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
+        "operationId": "getByDiscipline"
+      },
+      "parameters": [
+        {
+          "name": "discipline",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[a-z-]+",
+            "enum": [
+              "amenagement",
+              "anthropologie-demographie-sociologie",
+              "art-cinema-musique",
+              "communication-sciences-information",
+              "criminologie-psychologie-travail-social",
+              "droit",
+              "economie-politique-relations-industrielles",
+              "education-psychoeducation",
+              "etudes-religieuses-histoire-philosophie",
+              "informatique-mathematique-sciences-nature",
+              "langues-litteratures",
+              "sciences-sante"
+            ]
+          },
+          "description": "Le code de discipline"
+        },
+        {
+          "schema": {
+            "type": "string",
+            "pattern": "^\\.rss$"
+          },
+          "name": "ext",
+          "in": "path",
+          "description": "L'extension de fichier \".rss\""
+        }
+      ]
+    },
+    "/liste/disciplines": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "operationId": "getListeDisciplines",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/disciplinesMap"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "keys": [
+                        {
+                          "key": "amenagement",
+                          "label": "Aménagement"
+                        },
+                        {
+                          "key": "anthropologie-demographie-sociologie",
+                          "label": "Anthropologie, démographie, sociologie"
+                        },
+                        {
+                          "key": "art-cinema-musique",
+                          "label": "Art, cinéma, musique"
+                        },
+                        {
+                          "key": "communication-sciences-information",
+                          "label": "Communication, sciences de l'information"
+                        },
+                        {
+                          "key": "criminologie-psychologie-travail-social",
+                          "label": "Criminologie, psychologie, travail social"
+                        },
+                        {
+                          "key": "droit",
+                          "label": "Droit"
+                        },
+                        {
+                          "key": "economie-politique-relations-industrielles",
+                          "label": "Économie, politique, relations industrielles"
+                        },
+                        {
+                          "key": "education-psychoeducation",
+                          "label": "Éducation, psychoéducation"
+                        },
+                        {
+                          "key": "etudes-religieuses-histoire-philosophie",
+                          "label": "Études religieuses, histoire, philosophie"
+                        },
+                        {
+                          "key": "informatique-mathematique-sciences-nature",
+                          "label": "Informatique, mathématiques, sciences de la nature"
+                        },
+                        {
+                          "key": "langues-litteratures",
+                          "label": "Langues et littératures"
+                        },
+                        {
+                          "key": "sciences-sante",
+                          "label": "Sciences de la santé"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Retourne la liste des codes de disciplines"
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "acquisition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titre": {
+            "type": "string"
+          },
+          "auteurs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "href": {
+            "type": "string"
+          },
+          "disciplines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/disciplineKey"
+            }
+          },
+          "categorielivraison": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "editeur": {
+            "type": "string"
+          },
+          "cotes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "format": {
+            "type": "string"
+          },
+          "isbns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "image": {
+            "type": "string"
+          },
+          "datenouveaute": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "datenouveaute"
+        ]
+      },
+      "acquisitionsList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/acquisition"
+        },
+        "title": "Une liste d'acquisitions",
+        "description": "Une liste d'acquisitions",
+        "x-stoplight": {
+          "id": "43fa112ecdcb9"
+        }
+      },
+      "discipline": {
+        "title": "Une discipline",
+        "description": "Une discipline",
+        "required": [
+          "key",
+          "label"
+        ],
+        "type": "object",
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/disciplineKey"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "key": "amenagement",
+          "label": "Aménagement"
+        }
+      },
+      "disciplineKey": {
+        "type": "string",
+        "example": "amenagement",
+        "pattern": "^[a-z-]+",
+        "enum": [
+          "amenagement",
+          "anthropologie-demographie-sociologie",
+          "art-cinema-musique",
+          "communication-sciences-information",
+          "criminologie-psychologie-travail-social",
+          "droit",
+          "economie-politique-relations-industrielles",
+          "education-psychoeducation",
+          "etudes-religieuses-histoire-philosophie",
+          "informatique-mathematique-sciences-nature",
+          "langues-litteratures",
+          "sciences-sante"
+        ]
+      },
+      "disciplinesMap": {
+        "type": "object",
+        "description": "Un objet contenant une liste de codes de disciplines.",
+        "additionalProperties": false,
+        "minProperties": 1,
+        "maxProperties": 1,
+        "properties": {
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/discipline"
+            }
+          }
+        },
+        "required": [
+          "keys"
+        ],
+        "x-stoplight": {
+          "id": "5c5a71e5535b7"
+        }
+      }
+    },
+    "responses": {},
+    "parameters": {
+      "limite": {
+        "name": "limite",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "maximum": 1000,
+          "default": 100,
+          "example": 10,
+          "minimum": 0
+        },
+        "description": "Nombre maximum d'items à retourner"
+      },
+      "periode": {
+        "name": "periode",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 10,
+          "maximum": 30,
+          "example": 10,
+          "minimum": 1
+        },
+        "description": "La période en jours"
+      },
+      "discipline": {
+        "name": "discipline",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z-]+",
+          "enum": [
+            "amenagement",
+            "anthropologie-demographie-sociologie",
+            "art-cinema-musique",
+            "communication-sciences-information",
+            "criminologie-psychologie-travail-social",
+            "droit",
+            "economie-politique-relations-industrielles",
+            "education-psychoeducation",
+            "etudes-religieuses-histoire-philosophie",
+            "informatique-mathematique-sciences-nature",
+            "langues-litteratures",
+            "sciences-sante"
+          ]
+        },
+        "description": "Le code de discipline"
+      }
+    },
+    "securitySchemes": {}
+  }
 }
