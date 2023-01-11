@@ -65,7 +65,7 @@
                 "responses": {
                     "200": {
                         "content": {
-                            "text/html": {
+                            "text/plain": {
                                 "schema": {
                                     "type": "string"
                                 },
