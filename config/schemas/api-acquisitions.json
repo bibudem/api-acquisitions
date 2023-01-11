@@ -121,7 +121,7 @@
         "description": "Retourne une liste d'acquisitions pour une discipline donnée."
       }
     },
-    "/disciplines/{discipline}{ext}": {
+    "/disciplines/{discipline}": {
       "summary": "Liste les nouvelles acquisitions pour une discipline",
       "get": {
         "parameters": [
@@ -139,7 +139,56 @@
                 "schema": {
                   "$ref": "#/components/schemas/acquisitionsList"
                 }
-              },
+              }
+            },
+            "description": "Une liste de nouvelles acquisitions pour une discipline donnée."
+          }
+        },
+        "summary": "",
+        "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
+        "operationId": "getByDiscipline"
+      },
+      "parameters": [
+        {
+          "name": "discipline",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[a-z-]+",
+            "enum": [
+              "amenagement",
+              "anthropologie-demographie-sociologie",
+              "art-cinema-musique",
+              "communication-sciences-information",
+              "criminologie-psychologie-travail-social",
+              "droit",
+              "economie-politique-relations-industrielles",
+              "education-psychoeducation",
+              "etudes-religieuses-histoire-philosophie",
+              "informatique-mathematique-sciences-nature",
+              "langues-litteratures",
+              "sciences-sante"
+            ]
+          },
+          "description": "Le code de discipline"
+        }
+      ]
+    },
+    "/disciplines/{discipline}{ext}": {
+      "summary": "Liste les nouvelles acquisitions pour une discipline",
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limite"
+          },
+          {
+            "$ref": "#/components/parameters/periode"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
               "application/rss+xml": {
                 "schema": {
                   "type": "string"
@@ -185,7 +234,8 @@
           },
           "name": "ext",
           "in": "path",
-          "description": "L'extension de fichier \".rss\""
+          "description": "L'extension de fichier \".rss\"",
+          "required": true
         }
       ]
     },
