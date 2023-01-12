@@ -25,13 +25,7 @@
             "$ref": "#/components/parameters/limite"
           },
           {
-            "name": "discipline",
-            "description": "Code de discipline",
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "required": false
+            "$ref": "#/components/parameters/disciplines"
           },
           {
             "$ref": "#/components/parameters/periode"
@@ -39,25 +33,23 @@
         ],
         "responses": {
           "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/acquisitionsList"
                 }
               }
-            },
-            "description": "Une liste de disciplines"
+            }
           },
           "400": {
-            "content": {
-              "application/json": {}
-            },
-            "description": "bad input parameter"
+            "$ref": "#/components/responses/RequestValidationError"
           }
         },
         "operationId": "get",
-        "summary": "searches inventory",
-        "description": "Recherche des nouvelles acquisitions en filtrant par limite, discipline ou période.\n"
+        "summary": "Get all",
+        "description": "Recherche des nouvelles acquisitions en filtrant par limite, discipline ou période.\n",
+        "x-internal": true
       }
     },
     "/about": {
@@ -80,7 +72,8 @@
           }
         },
         "operationId": "about",
-        "description": "Affiche le nom, la version et l'environnement d'exécution de l'API"
+        "description": "Affiche le nom, la version et l'environnement d'exécution de l'API",
+        "summary": "About"
       }
     },
     "/discipline/{discipline}": {
@@ -95,17 +88,13 @@
         }
       ],
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Get by discipline",
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/acquisitionsList"
-                }
-              }
-            }
+            "$ref": "#/components/responses/AcquisitionsListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/RequestValidationError"
           }
         },
         "operationId": "getByDisciplineOld",
@@ -134,17 +123,13 @@
         ],
         "responses": {
           "200": {
-            "content": {
-              "application/rss+xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/XMLType"
-                }
-              }
-            },
-            "description": "Une liste de nouvelles acquisitions pour une discipline donnée."
+            "$ref": "#/components/responses/AcquisitionsListRSSResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/RequestValidationError"
           }
         },
-        "summary": "",
+        "summary": "Get RSS feed by discipline",
         "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
         "operationId": "getByDiscipline"
       },
@@ -198,17 +183,13 @@
         ],
         "responses": {
           "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/acquisitionsList"
-                }
-              }
-            },
-            "description": "Une liste de nouvelles acquisitions pour une discipline donnée."
+            "$ref": "#/components/responses/AcquisitionsListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/RequestValidationError"
           }
         },
-        "summary": "",
+        "summary": "Get by discipline",
         "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
         "operationId": "getByDiscipline"
       },
@@ -460,9 +441,176 @@
         "x-examples": {
           "RSS Feed": "string"
         }
+      },
+      "RequestError": {
+        "title": "RequestError",
+        "x-stoplight": {
+          "id": "94a761w2pgwms"
+        },
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatus"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/Errors"
+          }
+        }
+      },
+      "HttpStatusCode": {
+        "title": "HttpStatusCode",
+        "x-stoplight": {
+          "id": "58d6f80a0c6d4"
+        },
+        "type": "integer",
+        "example": 200,
+        "description": ""
+      },
+      "HttpStatus": {
+        "type": "integer",
+        "example": 200
+      },
+      "Errors": {
+        "title": "Errors",
+        "x-stoplight": {
+          "id": "fe37fg3hzmg6k"
+        },
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/components/schemas/Error"
+        }
+      },
+      "Error": {
+        "title": "Error",
+        "x-stoplight": {
+          "id": "d3qc3o8tkmc91"
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
       }
     },
-    "responses": {},
+    "responses": {
+      "AcquisitionsListResponse": {
+        "description": "Une liste de nouvelles acquisitions",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/acquisitionsList"
+            },
+            "examples": {
+              "Example 1": {
+                "value": [
+                  {
+                    "id": "1341844661",
+                    "titre": "Handbook of coriander (Coriandrum sativum) : chemistry, functionality, and applications / edited by Mohamed Fawzy Ramadan",
+                    "auteurs": [
+                      "Mohamed Fawzy Ramadan"
+                    ],
+                    "url": "https://umontreal.on.worldcat.org/oclc/1341844661",
+                    "categorielivraison": "en_ligne",
+                    "type": "livre",
+                    "editeur": "Boca Raton CRC Press",
+                    "cotes": [
+                      "SB351.C69"
+                    ],
+                    "disciplines": [
+                      "amenagement"
+                    ],
+                    "format": "1 online resource",
+                    "isbns": [
+                      "9781003204626",
+                      "1003204627"
+                    ],
+                    "image": "https://syndetics.com/index.aspx?isbn=9781003204626/SC.JPG",
+                    "datenouveaute": "2023-01-09T00:00:00.000Z",
+                    "datederniermiseajour": "2023-01-09T10:30:37.685Z"
+                  }
+                ]
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/XMLType"
+            }
+          }
+        }
+      },
+      "AcquisitionsListRSSResponse": {
+        "description": "Un fil RSS de nouvelles acquisitions",
+        "content": {
+          "application/rss+xml": {
+            "schema": {
+              "$ref": "https://json.schemastore.org/feed.json"
+            },
+            "examples": {
+              "Example 1": {
+                "value": [
+                  {
+                    "id": "1341844661",
+                    "titre": "Handbook of coriander (Coriandrum sativum) : chemistry, functionality, and applications / edited by Mohamed Fawzy Ramadan",
+                    "auteurs": [
+                      "Mohamed Fawzy Ramadan"
+                    ],
+                    "url": "https://umontreal.on.worldcat.org/oclc/1341844661",
+                    "categorielivraison": "en_ligne",
+                    "type": "livre",
+                    "editeur": "Boca Raton CRC Press",
+                    "cotes": [
+                      "SB351.C69"
+                    ],
+                    "disciplines": [
+                      "amenagement"
+                    ],
+                    "format": "1 online resource",
+                    "isbns": [
+                      "9781003204626",
+                      "1003204627"
+                    ],
+                    "image": "https://syndetics.com/index.aspx?isbn=9781003204626/SC.JPG",
+                    "datenouveaute": "2023-01-09T00:00:00.000Z",
+                    "datederniermiseajour": "2023-01-09T10:30:37.685Z"
+                  }
+                ]
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/XMLType"
+            }
+          }
+        }
+      },
+      "RequestValidationError": {
+        "description": "Example response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RequestError"
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
     "parameters": {
       "limite": {
         "name": "limite",
@@ -483,7 +631,7 @@
         "required": false,
         "schema": {
           "type": "integer",
-          "default": 10,
+          "default": 7,
           "maximum": 30,
           "example": 10,
           "minimum": 1
@@ -510,9 +658,35 @@
             "informatique-mathematique-sciences-nature",
             "langues-litteratures",
             "sciences-sante"
-          ]
+          ],
+          "example": "langues-litteratures"
         },
         "description": "Le code de discipline"
+      },
+      "disciplines": {
+        "name": "disciplines",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "enum": [
+            "amenagement",
+            "anthropologie-demographie-sociologie",
+            "art-cinema-musique",
+            "communication-sciences-information",
+            "criminologie-psychologie-travail-social",
+            "droit",
+            "economie-politique-relations-industrielles",
+            "education-psychoeducation",
+            "etudes-religieuses-histoire-philosophie",
+            "informatique-mathematique-sciences-nature",
+            "langues-litteratures",
+            "sciences-sante"
+          ],
+          "example": "education-psychoeducation"
+        },
+        "explode": true,
+        "description": "Code de discipline"
       }
     },
     "securitySchemes": {}
