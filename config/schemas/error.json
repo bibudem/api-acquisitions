@@ -1,0 +1,25 @@
+
+      {
+        "title": "Error",
+        "x-stoplight": {
+          "id": "d3qc3o8tkmc91"
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
