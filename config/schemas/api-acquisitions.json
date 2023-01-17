@@ -13,8 +13,8 @@
       "email": "christian.remillard@umontreal.ca"
     },
     "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      "name": "MIT",
+      "url": "https://raw.githubusercontent.com/bibudem/api-acquisitions/main/LICENSE"
     }
   },
   "paths": {
@@ -594,7 +594,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/RequestError"
+              "$ref": "errors.json#/components/schemas/RequestError"
             }
           }
         },
@@ -659,7 +659,9 @@
         "required": false,
         "schema": {
           "type": "array",
-          "items": {"type": "string"},
+          "items": {
+            "type": "string"
+          },
           "enum": [
             "amenagement",
             "anthropologie-demographie-sociologie",

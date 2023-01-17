@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.0",
+  "x-stoplight": {
+    "id": "ms00kxv5cxwml"
+  },
+  "info": {
+    "title": "errors",
+    "version": "1.0",
+    "contact": {
+      "name": "Christian Rémillard",
+      "email": "christian.remillard@umontreal.ca",
+      "url": "https://github.com/bibudem/api-acquisitions"
+    },
+    "license": {
+      "url": "https://raw.githubusercontent.com/bibudem/api-acquisitions/main/LICENSE",
+      "name": "MIT"
+    }
+  },
+  "servers": [],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "ResponseValidationError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP Status Code"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResponseValidationErrorError"
+            }
+          }
+        },
+        "required": [
+          "message",
+          "status"
+        ],
+        "x-internal": true
+      },
+      "ResponseValidationErrorError": {
+        "title": "ResponseValidationErrorError",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "path",
+          "errorCode"
+        ],
+        "x-internal": true
+      },
+      "ResponseError": {
+        "title": "ResponseError",
+        "x-stoplight": {
+          "id": "pkvkjla9n6wsw"
+        },
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "data": {
+            "type": [
+              "object",
+              "array"
+            ],
+            "nullable": true
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "status"
+        ],
+        "description": "An error response"
+      },
+      "Status": {
+        "title": "Status",
+        "x-stoplight": {
+          "id": "mmiy3nf8hsog9"
+        },
+        "type": "string",
+        "enum": [
+          "success",
+          "fail",
+          "error"
+        ],
+        "example": "success",
+        "description": "An error response status string"
+      },
+      "RequestError": {
+        "title": "RequestError",
+        "x-stoplight": {
+          "id": "ltwmxwoex3cv3"
+        },
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
+      }
+    }
+  }
+}
