@@ -13,6 +13,11 @@
   ],
   "aliases": {},
   "rules": {},
+  "inheritedOverrides": {
+    "oas3-unused-component": {
+      "severity": "hint"
+    }
+  },
   "extendedStyleguides": [
     {
       "id": "cHJqOjEyMzU4Ng",

@@ -79,15 +79,53 @@
         "summary": "About"
       }
     },
+    "/discipline/{discipline}.{format}": {
+      "summary": "Liste les nouvelles acquisitions pour une discipline",
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limite"
+          },
+          {
+            "$ref": "#/components/parameters/periode"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/AcquisitionsListRSSResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/RequestValidationError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalErrorResponse"
+          }
+        },
+        "summary": "Get RSS feed by discipline",
+        "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
+        "operationId": "getByDisciplineRSS",
+        "deprecated": true
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/discipline"
+        },
+        {
+          "schema": {
+            "type": "string",
+            "pattern": "rss"
+          },
+          "name": "format",
+          "in": "path",
+          "description": "L'extension de fichier \"rss\"",
+          "required": true
+        }
+      ]
+    },
     "/discipline/{discipline}": {
       "parameters": [
         {
-          "schema": {
-            "type": "string"
-          },
-          "name": "discipline",
-          "in": "path",
-          "required": true
+          "$ref": "#/components/parameters/discipline"
         }
       ],
       "get": {
@@ -144,28 +182,7 @@
       },
       "parameters": [
         {
-          "name": "discipline",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "pattern": "^[a-z-]+",
-            "enum": [
-              "amenagement",
-              "anthropologie-demographie-sociologie",
-              "art-cinema-musique",
-              "communication-sciences-information",
-              "criminologie-psychologie-travail-social",
-              "droit",
-              "economie-politique-relations-industrielles",
-              "education-psychoeducation",
-              "etudes-religieuses-histoire-philosophie",
-              "informatique-mathematique-sciences-nature",
-              "langues-litteratures",
-              "sciences-sante"
-            ]
-          },
-          "description": "Le code de discipline"
+          "$ref": "#/components/parameters/discipline"
         },
         {
           "schema": {
@@ -207,28 +224,7 @@
       },
       "parameters": [
         {
-          "name": "discipline",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "pattern": "^[a-z-]+",
-            "enum": [
-              "amenagement",
-              "anthropologie-demographie-sociologie",
-              "art-cinema-musique",
-              "communication-sciences-information",
-              "criminologie-psychologie-travail-social",
-              "droit",
-              "economie-politique-relations-industrielles",
-              "education-psychoeducation",
-              "etudes-religieuses-histoire-philosophie",
-              "informatique-mathematique-sciences-nature",
-              "langues-litteratures",
-              "sciences-sante"
-            ]
-          },
-          "description": "Le code de discipline"
+          "$ref": "#/components/parameters/discipline"
         }
       ]
     },
@@ -335,7 +331,7 @@
           "disciplines": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/disciplineKey"
+              "$ref": "#/components/schemas/codeDiscipline"
             }
           },
           "categorielivraison": {
@@ -395,7 +391,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "$ref": "#/components/schemas/disciplineKey"
+            "$ref": "#/components/schemas/codeDiscipline"
           },
           "label": {
             "type": "string"
@@ -406,7 +402,7 @@
           "label": "Aménagement"
         }
       },
-      "disciplineKey": {
+      "codeDiscipline": {
         "type": "string",
         "example": "amenagement",
         "pattern": "^[a-z-]+",
@@ -423,7 +419,12 @@
           "informatique-mathematique-sciences-nature",
           "langues-litteratures",
           "sciences-sante"
-        ]
+        ],
+        "description": "Un code de discipline",
+        "title": "codeDiscipline",
+        "x-stoplight": {
+          "id": "1cd758e39a58c"
+        }
       },
       "disciplinesMap": {
         "type": "object",
