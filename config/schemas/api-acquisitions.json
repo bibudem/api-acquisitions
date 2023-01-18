@@ -549,8 +549,8 @@
         "required": false,
         "schema": {
           "type": "integer",
-          "maximum": 1000,
-          "default": 100,
+          "maximum": 5000,
+          "default": 1000,
           "example": 10,
           "minimum": 0
         },
