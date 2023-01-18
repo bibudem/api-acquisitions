@@ -44,6 +44,9 @@
           },
           "400": {
             "$ref": "#/components/responses/RequestValidationError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
         "operationId": "get",
@@ -95,6 +98,9 @@
           },
           "400": {
             "$ref": "#/components/responses/RequestValidationError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
         "operationId": "getByDisciplineOld",
@@ -127,11 +133,14 @@
           },
           "400": {
             "$ref": "#/components/responses/RequestValidationError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
         "summary": "Get RSS feed by discipline",
         "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
-        "operationId": "getByDiscipline"
+        "operationId": "getByDisciplineRSS"
       },
       "parameters": [
         {
@@ -187,6 +196,9 @@
           },
           "400": {
             "$ref": "#/components/responses/RequestValidationError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
         "summary": "Get by discipline",
@@ -222,7 +234,7 @@
     },
     "/liste/disciplines": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Get disciplines list",
         "operationId": "getListeDisciplines",
         "responses": {
           "200": {
@@ -290,6 +302,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
         "description": "Retourne la liste des codes de disciplines"
@@ -431,30 +446,15 @@
           "id": "5c5a71e5535b7"
         }
       },
-      "XMLType": {
-        "title": "XMLType",
+      "RSSType": {
+        "title": "RSSType",
         "x-stoplight": {
           "id": "khh8ox6apneag"
         },
         "type": "string",
-        "description": "XML markup",
+        "description": "RSS markup",
         "x-examples": {
           "RSS Feed": "string"
-        }
-      },
-      "RequestError": {
-        "title": "RequestError",
-        "x-stoplight": {
-          "id": "94a761w2pgwms"
-        },
-        "type": "object",
-        "properties": {
-          "status": {
-            "$ref": "#/components/schemas/HttpStatusCode"
-          },
-          "errors": {
-            "$ref": "#/components/schemas/Errors"
-          }
         }
       },
       "HttpStatusCode": {
@@ -514,44 +514,13 @@
         "content": {
           "application/rss+xml": {
             "schema": {
-              "$ref": "#/components/schemas/XMLType"
-            },
-            "examples": {
-              "Example 1": {
-                "value": [
-                  {
-                    "id": "1341844661",
-                    "titre": "Handbook of coriander (Coriandrum sativum) : chemistry, functionality, and applications / edited by Mohamed Fawzy Ramadan",
-                    "auteurs": [
-                      "Mohamed Fawzy Ramadan"
-                    ],
-                    "url": "https://umontreal.on.worldcat.org/oclc/1341844661",
-                    "categorielivraison": "en_ligne",
-                    "type": "livre",
-                    "editeur": "Boca Raton CRC Press",
-                    "cotes": [
-                      "SB351.C69"
-                    ],
-                    "disciplines": [
-                      "amenagement"
-                    ],
-                    "format": "1 online resource",
-                    "isbns": [
-                      "9781003204626",
-                      "1003204627"
-                    ],
-                    "image": "https://syndetics.com/index.aspx?isbn=9781003204626/SC.JPG",
-                    "datenouveaute": "2023-01-09T00:00:00.000Z",
-                    "datederniermiseajour": "2023-01-09T10:30:37.685Z"
-                  }
-                ]
-              }
+              "$ref": "#/components/schemas/RSSType"
             }
           }
         }
       },
       "RequestValidationError": {
-        "description": "Example response",
+        "description": "A response that documents a request error",
         "content": {
           "application/json": {
             "schema": {
@@ -560,6 +529,16 @@
           }
         },
         "headers": {}
+      },
+      "InternalErrorResponse": {
+        "description": "Example response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "errors.json#/components/schemas/InternalError"
+            }
+          }
+        }
       }
     },
     "parameters": {

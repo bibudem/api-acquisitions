@@ -97,6 +97,32 @@
           "message"
         ]
       },
+      "InternalError": {
+        "title": "InternalError",
+        "type": "object",
+        "description": "A response describing an internal (server) error",
+        "x-stoplight": {
+          "id": "7c9da95ee8caf"
+        },
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "$ref": "#/components/schemas/Details"
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
+      },
       "RequestError": {
         "title": "RequestError",
         "x-stoplight": {
@@ -133,6 +159,9 @@
         ],
         "example": "success",
         "description": "An error response status string"
+      },
+      "ResponseError - copy": {
+        "type": "object"
       }
     }
   }
