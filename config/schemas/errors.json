@@ -20,30 +20,27 @@
   "paths": {},
   "components": {
     "schemas": {
-      "ResponseValidationError": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "status": {
-            "type": "integer",
-            "description": "HTTP Status Code"
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ResponseValidationErrorError"
-            }
-          }
+      "Details": {
+        "title": "Details",
+        "x-stoplight": {
+          "id": "u0h2on1qqh19r"
         },
-        "required": [
-          "message",
-          "status"
-        ],
-        "x-internal": true
+        "type": [
+          "object",
+          "array",
+          "string"
+        ]
       },
-      "ResponseValidationErrorError": {
+      "HttpStatusCode": {
+        "title": "HttpStatusCode",
+        "x-stoplight": {
+          "id": "2crrgicw2abu9"
+        },
+        "type": "integer",
+        "example": 200,
+        "description": ""
+      },
+      "ResponseValidationError": {
         "title": "ResponseValidationErrorError",
         "type": "object",
         "properties": {
@@ -65,7 +62,10 @@
           "path",
           "errorCode"
         ],
-        "x-internal": true
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "b23cfa2959cb4"
+        }
       },
       "ResponseError": {
         "title": "ResponseError",
@@ -73,29 +73,52 @@
           "id": "pkvkjla9n6wsw"
         },
         "type": "object",
+        "description": "A response error",
         "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
           "message": {
             "type": "string"
           },
-          "status": {
-            "$ref": "#/components/schemas/Status"
-          },
-          "data": {
-            "type": [
-              "object",
-              "array"
-            ],
-            "nullable": true
+          "details": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/ResponseValidationError"
+            }
           },
           "code": {
             "type": "string"
           }
         },
         "required": [
-          "message",
-          "status"
+          "status",
+          "message"
+        ]
+      },
+      "RequestError": {
+        "title": "RequestError",
+        "x-stoplight": {
+          "id": "ltwmxwoex3cv3"
+        },
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "$ref": "#/components/schemas/Details"
+          }
+        },
+        "required": [
+          "status",
+          "message"
         ],
-        "description": "An error response"
+        "description": "A request error"
       },
       "Status": {
         "title": "Status",
@@ -110,34 +133,6 @@
         ],
         "example": "success",
         "description": "An error response status string"
-      },
-      "RequestError": {
-        "title": "RequestError",
-        "x-stoplight": {
-          "id": "ltwmxwoex3cv3"
-        },
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "fail"
-            ]
-          },
-          "message": {
-            "type": "string"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          }
-        },
-        "required": [
-          "status",
-          "message"
-        ]
       }
     }
   }

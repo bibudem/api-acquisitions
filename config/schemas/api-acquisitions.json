@@ -450,7 +450,7 @@
         "type": "object",
         "properties": {
           "status": {
-            "$ref": "#/components/schemas/HttpStatus"
+            "$ref": "#/components/schemas/HttpStatusCode"
           },
           "errors": {
             "$ref": "#/components/schemas/Errors"
@@ -465,45 +465,6 @@
         "type": "integer",
         "example": 200,
         "description": ""
-      },
-      "HttpStatus": {
-        "type": "integer",
-        "example": 200
-      },
-      "Errors": {
-        "title": "Errors",
-        "x-stoplight": {
-          "id": "fe37fg3hzmg6k"
-        },
-        "type": "array",
-        "minItems": 1,
-        "items": {
-          "$ref": "#/components/schemas/Error"
-        }
-      },
-      "Error": {
-        "title": "Error",
-        "x-stoplight": {
-          "id": "d3qc3o8tkmc91"
-        },
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "path": {
-            "type": "string"
-          },
-          "errorCode": {
-            "type": "string"
-          },
-          "location": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "message"
-        ]
       }
     },
     "responses": {
