@@ -129,6 +129,7 @@
           "id": "ltwmxwoex3cv3"
         },
         "type": "object",
+        "description": "A request error",
         "properties": {
           "status": {
             "$ref": "#/components/schemas/HttpStatusCode"
@@ -142,9 +143,9 @@
         },
         "required": [
           "status",
-          "message"
-        ],
-        "description": "A request error"
+          "message",
+          "details"
+        ]
       },
       "Status": {
         "title": "Status",
