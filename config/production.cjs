@@ -1,5 +1,5 @@
 module.exports = {
-	apiBaseUrl: 'https://api.bib.umontreal.ca/acquisitions/',
+	apiBaseUrl: 'https://api.bib.umontreal.ca/acquisitions',
 	log: {
 		level: 'log'
 	},

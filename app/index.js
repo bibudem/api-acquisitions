@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import webLogger from '@remillc/web-logger'
 import config from 'config'
 import { initializeApi } from './api.js'
+import { defaultJSONHandler } from './middlewares/error.middleware.js'
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(webLogger({
 app.use(`/`, express.static('public'));
 
 initializeApi(app)
+
+app.use(defaultJSONHandler)
 
 app.listen(config.get('server.port'), function (err) {
   if (err) throw err;
