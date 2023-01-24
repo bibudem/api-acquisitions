@@ -37,7 +37,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/acquisitionsList"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/acquisitionsList"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RSSType"
+                    }
+                  ]
                 }
               }
             }
