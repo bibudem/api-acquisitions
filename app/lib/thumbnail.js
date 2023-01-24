@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from 'config'
+import console from './console.js';
 
 /*
  * getThumbnailLink
@@ -44,21 +45,19 @@ export async function getThumbnailLink(isbns, type) {
 
 // return urls de l'image de la couverture (3 formats?)
 async function fetchThumbnailLinkFromSyndetics(isbn) {
-  const url = new URL('https://syndetics.com/index.aspx')
-  url.searchParams.set('isbn', `${isbn}/SC.PNG`)
+  const url = `https://syndetics.com/index.aspx?isbn=${isbn}/SC.JPG`
 
   try {
     const res = await axios.get(url);
     //console.log("response syndetics", res)
     // On vérifie que la taille de l'image est différente de la taille de l'image par défaut
-    if ((res.status == 200) && res.headers['content-length'] != 86) {
+    if (res.status === 200 && res.headers['content-length'] != 86) {
       return url;
     }
-    return undefined;
+    return null;
 
-  } catch (e) {
-    console.error(new Date().toISOString() + " - " + "Erreur function fetchThumbnailLinkFromSyndetics - isbn = " + isbn)
-    console.error(new Date().toISOString() + " - ", e)
+  } catch (error) {
+    console.error('Erreur function fetchThumbnailLinkFromSyndetics - isbn = ' + isbn + ' erreur: ', error)
     return undefined;
   }
 }
@@ -79,9 +78,8 @@ export async function fetchThumbnailLinkFromGoogleBooksApi(isbn) {
     }
     return undefined;
 
-  } catch (e) {
-    //console.error(new Date().toISOString() + " - " + "Erreur function fetchThumbnailLinkFromGoogleBooksApi - isbn = " + isbn)
-    //console.error(new Date().toISOString() + " - " , e)
+  } catch (error) {
+    console.error('Erreur function fetchThumbnailLinkFromGoogleBooksApi - isbn = ' + isbn + ' erreur: ', error)
     return undefined;
   }
 }
@@ -93,28 +91,32 @@ function getDefaultImage(type) {
 
   switch (type) {
     case 'vidéo':
-      type = 'video';
+      type = 'file-movie';
       break;
 
     case 'partition':
-      type = 'score';
+      type = 'file-musical-score';
       break;
 
     case 'périodique':
-      type = 'journal';
+      type = 'newspaper';
       break;
 
     case 'enregistrement sonore':
-      type = 'audio';
+      type = 'file-sound';
       break;
 
     case 'livre':
+      type = 'book';
+      break;
+
     case 'image':
+      type = 'file-picture';
       break;
 
     default:
-      type = "other";
+      type = "file-text";
   }
 
-  return `${config.get('apiBaseUrl')}/types/icon_${type.toLowerCase()}.png`;
+  return `${config.get('apiBaseUrl')}/icons/${type.toLowerCase()}.png`;
 }

@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -16,7 +17,7 @@ app.use(webLogger({
   logDirectory: config.get('log.dir')
 }));
 
-app.use(`/`, express.static('public'));
+app.use(`/`, express.static(fileURLToPath(new URL('./public', import.meta.url))));
 
 initializeApi(app)
 

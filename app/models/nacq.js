@@ -13,7 +13,9 @@ const sort = {
 }
 
 function addedDate() {
-    return (new Date()).setUTCHours(0, 0, 0, 0)
+    const today = new Date()
+    today.setUTCHours(0, 0, 0, 0)
+    return today
 }
 
 function periode2Date(periode) {
@@ -73,7 +75,8 @@ export class Nacq {
     }
 
     static async upsert(nacq) {
-        nacq.datenouveaute = addedDate()
+        // nacq.datenouveaute = addedDate()
+        nacq.datederniermiseajour = new Date()
 
         return await nacqs.updateOne({ id: nacq.id }, { $set: nacq }, { upsert: true })
     }

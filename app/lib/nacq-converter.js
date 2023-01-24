@@ -34,7 +34,7 @@ export async function convertOclcBibRecordToNacq({ bibRecord, holding }) {
 
   const disciplines = getDisciplines(record.cotes, holding, bibRecord)
   if (disciplines.length == 0) {
-    console.warn(`No discipline found for record ${record.url}`)
+    console.debug(`No discipline found for record ${record.url}`)
     return null;
   }
 
@@ -54,7 +54,7 @@ export async function convertOclcBibRecordToNacq({ bibRecord, holding }) {
 
   record.image = await getThumbnailLink(isbns, record.type);
 
-  record.datenouveaute = getDateNewRecord();
+  record.datenouveaute = getDate();
 
   return record;
 }
@@ -487,9 +487,9 @@ function getIsbns(identifier) {
 }
 
 /*
- * getDateNewRecord
+ * getDate
  */
-function getDateNewRecord() {
+function getDate() {
   const today = new Date()
   today.setUTCHours(0, 0, 0, 0)
   return today;

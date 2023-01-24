@@ -8,11 +8,13 @@ const API_BASE_URL = config.get('apiBaseUrl')
 
 export function toRSS(disciplineKey, posts) {
   const headers = Object.assign({}, config.get('rss.headers'))
+  const singleDiscipline = typeof disciplineKey === 'string'
+  console.log(typeof disciplineKey)
 
-  headers.title = `Nouveautés en ${DISCIPLINES.find(d => d.key === disciplineKey).label.toLowerCase()}${config.get('rss.titleSuffix')}`
+  headers.title = `Nouveautés${singleDiscipline ? ` en ${DISCIPLINES.find(d => d.key === disciplineKey).label.toLowerCase()}` : ``}${config.get('rss.titleSuffix')}`
   headers.pubDate = (new Date()).toISOString()
-  headers.site_url = `${headers.site_url}/${disciplineKey}/nouveautes`
-  headers.feed_url = `${API_BASE_URL}/disciplines/${disciplineKey}.rss`
+  headers.site_url = singleDiscipline ? `${headers.site_url}/${disciplineKey}/nouveautes` : headers.site_url
+  headers.feed_url = singleDiscipline ? `${API_BASE_URL}/disciplines/${disciplineKey}.rss` : `${API_BASE_URL}/${Array.isArray(disciplineKey) ? disciplineKey.map(key => `discipline=${key}`).join('&') : ''}`
 
   const rss = new RSS(headers)
 
@@ -28,7 +30,7 @@ export function toRSS(disciplineKey, posts) {
     const format = post.format ? `<p>${post.format}</p>` : ``
     const dateFormated = `<p><small>${longDateFormat.format(new Date(date))}</small></p>`
     const description = `<div style="display: flex">
-  <div style="align-self: center"><img src='${image}' /></div>
+  <div style="align-self: center"><img src="${image}" loading="lazy" alt="" /></div>
   <div>
     ${auteurs}
     ${editeur}
@@ -37,9 +39,10 @@ export function toRSS(disciplineKey, posts) {
   </div>
 </div>`
     const campainUrl = new URL(url)
+    const source = disciplineKey || 'all'
     campainUrl.searchParams.set('utm_campaign', config.get('rss.analytics.utm_campaign'))
     campainUrl.searchParams.set('utm_medium', config.get('rss.analytics.utm_medium'))
-    campainUrl.searchParams.set('utm_source', disciplineKey)
+    campainUrl.searchParams.set('utm_source', source)
 
     rss.item({
       title,

@@ -7,16 +7,17 @@ export async function get(req, res, next) {
   console.log('query: ', req.query)
   // res.json(await Nacq.get({ discipline: req.query.discipline, limite: req.query.limite, periode: req.query.periode }))
 
-  const format = req.params.format ?? 'json'
+  const format = (req.params.format || req.query.format) ?? 'json'
+  const discipline = req.params.discipline || req.query.discipline
 
   try {
-    const result = await Nacq.get({ discipline: req.params.discipline || req.query.discipline, limite: req.query.limite, periode: req.query.periode })
+    const result = await Nacq.get({ discipline, limite: req.query.limite, periode: req.query.periode })
     if (format === 'json') {
       // JSON format
       return res.json(result)
     }
     console.log('result.length: ' + result.length)
-    const rss = toRSS(req.params.discipline, result)
+    const rss = toRSS(discipline, result)
 
     // RSS format
     res.set('Content-Type', 'application/rss+xml').send(rss)
