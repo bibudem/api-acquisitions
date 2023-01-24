@@ -5,7 +5,6 @@ import { about } from './controllers/about.controller.js'
 import { get, getByDiscipline } from './controllers/nacq.controller.js'
 import { getListeDisciplines } from './controllers/disciplines.controller.js'
 import { errorMiddleware, responseValidationHandler } from './middlewares/error.middleware.js'
-import { inspect } from './lib/inspect.js'
 
 export async function initializeApi(app) {
   await initialize({
