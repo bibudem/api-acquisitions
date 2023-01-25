@@ -109,8 +109,8 @@
           }
         },
         "summary": "Get RSS feed by discipline",
-        "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
-        "operationId": "getByDisciplineRSS",
+        "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}.{format}`**\n\nRetourne une liste d'acquisitions pour une discipline donnée.",
+        "operationId": "getByDisciplineOldRSS",
         "deprecated": true
       },
       "parameters": [
@@ -158,7 +158,7 @@
             "$ref": "#/components/parameters/periode"
           }
         ],
-        "description": "Retourne une liste d'acquisitions pour une discipline donnée."
+        "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}`**\n\nRetourne une liste d'acquisitions pour une discipline donnée."
       }
     },
     "/disciplines/{discipline}.{format}": {
@@ -234,6 +234,27 @@
           "$ref": "#/components/parameters/discipline"
         }
       ]
+    },
+    "/icons/{icon}.png": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/icon"
+        }
+      ],
+      "get": {
+        "summary": "Icône",
+        "tags": [],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ImageFileResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/RequestValidationError"
+          }
+        },
+        "operationId": "getIcon",
+        "description": "Retourne un fichier icône au format png."
+      }
     },
     "/liste/disciplines": {
       "get": {
@@ -547,6 +568,18 @@
             }
           }
         }
+      },
+      "ImageFileResponse": {
+        "description": "",
+        "content": {
+          "image/png": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        },
+        "headers": {}
       }
     },
     "parameters": {
@@ -629,6 +662,23 @@
         "explode": true,
         "description": "Code de discipline",
         "style": "form"
+      },
+      "icon": {
+        "name": "icon",
+        "in": "path",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "book",
+            "file-movie",
+            "file-musical-score",
+            "file-picture",
+            "file-sound",
+            "file-text",
+            "newspaper"
+          ]
+        },
+        "required": true
       }
     },
     "securitySchemes": {}

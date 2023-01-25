@@ -160,9 +160,6 @@
         ],
         "example": "success",
         "description": "An error response status string"
-      },
-      "ResponseError - copy": {
-        "type": "object"
       }
     }
   }
