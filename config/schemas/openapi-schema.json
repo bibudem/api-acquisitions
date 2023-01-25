@@ -17,6 +17,15 @@
       "url": "https://raw.githubusercontent.com/bibudem/api-acquisitions/main/LICENSE"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "acquisition",
+      "description": "Une liste de nouvelles acquisitions"
+    }
+  ],
   "paths": {
     "/": {
       "get": {
@@ -57,8 +66,8 @@
           }
         },
         "operationId": "getNacq",
-        "summary": "Get all",
-        "description": "Recherche des nouvelles acquisitions en filtrant par limite, discipline ou période.\n",
+        "summary": "Retourne une liste de nouvelles acquistions",
+        "description": "Trouve des nouvelles acquisitions en filtrant par limite, discipline ou période.\n",
         "x-internal": true
       }
     },
@@ -83,7 +92,7 @@
         },
         "operationId": "getAbout",
         "description": "Affiche le nom, la version et l'environnement d'exécution de l'API",
-        "summary": "About"
+        "summary": "Retourne des informations à propos de l'API"
       }
     },
     "/discipline/{discipline}.{format}": {
@@ -108,8 +117,8 @@
             "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
-        "summary": "Get RSS feed by discipline",
-        "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}.{format}`**\n\nRetourne une liste d'acquisitions pour une discipline donnée.",
+        "summary": "Retourne un fil RSS de nouvelles acquisitions pour une discipline donné",
+        "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}.{format}`**\n\nRetourne un fil RSS d'une liste d'acquisitions pour une discipline donnée.",
         "operationId": "getByDisciplineOldRSS",
         "deprecated": true
       },
@@ -136,7 +145,7 @@
         }
       ],
       "get": {
-        "summary": "Get by discipline",
+        "summary": "Retourne une liste de nouvelles acquisitions pour une discipline donné",
         "responses": {
           "200": {
             "$ref": "#/components/responses/AcquisitionsListResponse"
@@ -183,8 +192,8 @@
             "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
-        "summary": "Get RSS feed by discipline",
-        "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
+        "summary": "Retourne un fil RSS de nouvelles acquisitions pour une discipline donné",
+        "description": "Retourne un fil RSS d'une liste d'acquisitions pour une discipline donnée.",
         "operationId": "getByDisciplineRSS"
       },
       "parameters": [
@@ -225,7 +234,7 @@
             "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
-        "summary": "Get by discipline",
+        "summary": "Retourne une liste de nouvelles acquisitions pour une discipline donné",
         "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
         "operationId": "getByDiscipline"
       },
@@ -242,7 +251,7 @@
         }
       ],
       "get": {
-        "summary": "Icône",
+        "summary": "Retourne une icône d'un type de document",
         "tags": [],
         "responses": {
           "200": {
@@ -258,7 +267,7 @@
     },
     "/liste/disciplines": {
       "get": {
-        "summary": "Get disciplines list",
+        "summary": "Retourne la liste des codes de disciplines",
         "operationId": "getListeDisciplines",
         "responses": {
           "200": {
@@ -331,7 +340,7 @@
             "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
-        "description": "Retourne la liste des codes de disciplines"
+        "description": "Retourne un objet contenant la liste des codes de disciplines"
       },
       "parameters": []
     }
@@ -560,7 +569,7 @@
         "headers": {}
       },
       "InternalErrorResponse": {
-        "description": "Example response",
+        "description": "Description de l'erreur interne",
         "content": {
           "application/json": {
             "schema": {
@@ -682,5 +691,6 @@
       }
     },
     "securitySchemes": {}
-  }
+  },
+  "servers": []
 }
