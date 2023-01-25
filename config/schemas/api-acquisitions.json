@@ -248,7 +248,7 @@
           "200": {
             "$ref": "#/components/responses/ImageFileResponse"
           },
-          "404": {
+          "400": {
             "$ref": "#/components/responses/RequestValidationError"
           }
         },
