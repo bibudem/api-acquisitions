@@ -756,5 +756,15 @@
         "required": true
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "url": "https://api.bib.umontreal.ca/acquisitions",
+      "description": "Serveur de production"
+    },
+    {
+      "url": "/",
+      "description": "Serveur de développement"
+    }
+  ]
 }
