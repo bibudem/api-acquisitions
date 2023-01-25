@@ -17,9 +17,6 @@
       "url": "https://raw.githubusercontent.com/bibudem/api-acquisitions/main/LICENSE"
     }
   },
-  "schemes": [
-    "https"
-  ],
   "tags": [
     {
       "name": "acquisition",
