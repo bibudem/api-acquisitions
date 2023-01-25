@@ -56,7 +56,7 @@
             "$ref": "#/components/responses/InternalErrorResponse"
           }
         },
-        "operationId": "get",
+        "operationId": "getNacq",
         "summary": "Get all",
         "description": "Recherche des nouvelles acquisitions en filtrant par limite, discipline ou période.\n",
         "x-internal": true
@@ -81,7 +81,7 @@
             "description": "Ok"
           }
         },
-        "operationId": "about",
+        "operationId": "getAbout",
         "description": "Affiche le nom, la version et l'environnement d'exécution de l'API",
         "summary": "About"
       }
