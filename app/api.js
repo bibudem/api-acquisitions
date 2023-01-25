@@ -1,8 +1,9 @@
 import { initialize } from 'express-openapi'
-import apiSchema from '../config/schemas/api-acquisitions.json' assert {type: 'json'}
+import apiSchema from '../config/schemas/openapi-schema.json' assert {type: 'json'}
 import errorsSchema from '../config/schemas/errors.json' assert {type: 'json'}
-import { about } from './controllers/about.controller.js'
-import { get, getByDiscipline } from './controllers/nacq.controller.js'
+import { getAbout } from './controllers/about.controller.js'
+import { getNacq } from './controllers/nacq.controller.js'
+import { getIcon } from './controllers/icon.controller.js'
 import { getListeDisciplines } from './controllers/disciplines.controller.js'
 import { errorMiddleware, responseValidationHandler } from './middlewares/error.middleware.js'
 
@@ -11,10 +12,6 @@ export async function initializeApi(app) {
     apiDoc: {
       ...apiSchema,
       'x-express-openapi-additional-middleware': [
-        (req, res, next) => {
-          console.log(`url: ${req.url}`)
-          next()
-        },
         responseValidationHandler
       ],
       'x-express-openapi-validation-strict': true
@@ -27,14 +24,14 @@ export async function initializeApi(app) {
       'errors.json': errorsSchema
     },
     operations: {
-      get,
-      about,
-      getByDisciplineOld: get,
-      getByDiscipline: get,
-      getByDisciplineRSS: get,
+      getNacq,
+      getAbout,
+      getByDisciplineOld: getNacq,
+      getByDisciplineOldRSS: getNacq,
+      getByDiscipline: getNacq,
+      getByDisciplineRSS: getNacq,
       getListeDisciplines,
-      validationFail: async (req, res) => res.status(400).json({ err: c.validation.errors }),
-      notFound: async (req, res) => res.status(404).json({ err: 'not found' }),
+      getIcon,
     }
   })
 }

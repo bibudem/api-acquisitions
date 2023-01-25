@@ -21,7 +21,7 @@ module.exports = {
 		proxy: 'http://mandataire.ti.umontreal.ca:80'
 	},
 	rss: {
-		titleSuffix: ' - Bibliothèques - Université de Montréal',
+		titleSuffix: ' - Bibliothèques / UdeM',
 		headers: {
 			site_url: 'https://bib.umontreal.ca',
 			image_url: 'https://bib.umontreal.ca/typo3conf/ext/udem_bib/Resources/Public/Images/logo-bib.svg',

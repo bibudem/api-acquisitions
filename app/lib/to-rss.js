@@ -30,7 +30,7 @@ export function toRSS(disciplineKey, posts) {
     const format = post.format ? `<p>${post.format}</p>` : ``
     const dateFormated = `<p><small>${longDateFormat.format(new Date(date))}</small></p>`
     const description = `<div style="display: flex">
-  <div style="align-self: center"><img src="${image}" loading="lazy" alt="" /></div>
+  <div style="align-self: center; margin-right: 1em;"><img src="${image}" loading="lazy" alt="" /></div>
   <div>
     ${auteurs}
     ${editeur}

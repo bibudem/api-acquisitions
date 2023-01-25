@@ -50,7 +50,7 @@ export function responseValidationHandler(req, res, next) {
         return send.apply(res, args);
       }
 
-      const body = res.get('Content-Type').includes('application/json') ? JSON.parse(args[0]) : args[0];
+      const body = res.get('Content-Type')?.includes('application/json') ? JSON.parse(args[0]) : args[0];
       let responseValidationError = res.validateResponse(res.statusCode, body);
       if (responseValidationError === undefined) {
         responseValidationError = { message: undefined, errors: undefined };
