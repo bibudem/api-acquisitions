@@ -447,6 +447,38 @@
         "description": "Une liste d'acquisitions",
         "x-stoplight": {
           "id": "43fa112ecdcb9"
+        },
+        "x-examples": {
+          "Example 1": [
+            {
+              "id": "1296690801",
+              "auteurs": [
+                "Christoph Hübenthal",
+                "Christiane Alpers"
+              ],
+              "categorielivraison": "en_ligne",
+              "cotes": [
+                "BT83.63"
+              ],
+              "datederniermiseajour": "2023-01-24T21:43:40.137Z",
+              "datenouveaute": "2023-01-24T00:00:00.000Z",
+              "disciplines": [
+                "etudes-religieuses-histoire-philosophie"
+              ],
+              "editeur": "London T&T Clark",
+              "format": "1 online resource.",
+              "image": "https://syndetics.com/index.aspx?isbn=0567692175/SC.JPG",
+              "isbns": [
+                "0567692175",
+                "9780567692160",
+                "0567692167",
+                "9780567692177"
+              ],
+              "titre": "T&T Clark handbook of public theology / edited by Christoph Hübenthal and Christiane Alpers",
+              "type": "livre",
+              "url": "https://umontreal.on.worldcat.org/oclc/1296690801"
+            }
+          ]
         }
       },
       "discipline": {
@@ -538,7 +570,7 @@
     },
     "responses": {
       "AcquisitionsListResponse": {
-        "description": "Une liste de nouvelles acquisitions",
+        "description": "opération réussie",
         "content": {
           "application/json": {
             "schema": {
@@ -589,7 +621,7 @@
         }
       },
       "RequestValidationError": {
-        "description": "A response that documents a request error",
+        "description": "Une réponse qui documente une requête erronée",
         "content": {
           "application/json": {
             "schema": {
@@ -720,8 +752,6 @@
         },
         "required": true
       }
-    },
-    "securitySchemes": {}
-  },
-  "servers": []
+    }
+  }
 }
