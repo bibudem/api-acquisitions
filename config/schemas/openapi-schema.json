@@ -436,14 +436,16 @@
         "required": [
           "id",
           "datenouveaute"
-        ]
+        ],
+        "title": "Nouvelle acquisition",
+        "description": "Un objet contenant une nouvelle acquisition"
       },
       "acquisitionsList": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/acquisition"
         },
-        "title": "Une liste d'acquisitions",
+        "title": "Liste de nouvelles acquisitions",
         "description": "Une liste d'acquisitions",
         "x-stoplight": {
           "id": "43fa112ecdcb9"
@@ -482,7 +484,7 @@
         }
       },
       "discipline": {
-        "title": "Une discipline",
+        "title": "Discipline",
         "description": "Une discipline",
         "required": [
           "key",
@@ -521,7 +523,7 @@
           "sciences-sante"
         ],
         "description": "Un code de discipline",
-        "title": "codeDiscipline",
+        "title": "Code de discipline",
         "x-stoplight": {
           "id": "1cd758e39a58c"
         }
@@ -545,10 +547,11 @@
         ],
         "x-stoplight": {
           "id": "5c5a71e5535b7"
-        }
+        },
+        "title": "Tableau des disciplines"
       },
       "RSSType": {
-        "title": "RSSType",
+        "title": "Fil RSS",
         "x-stoplight": {
           "id": "khh8ox6apneag"
         },
@@ -559,7 +562,7 @@
         }
       },
       "HttpStatusCode": {
-        "title": "HttpStatusCode",
+        "title": "Code HTTP",
         "x-stoplight": {
           "id": "58d6f80a0c6d4"
         },
