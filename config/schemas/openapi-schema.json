@@ -19,8 +19,10 @@
   },
   "tags": [
     {
-      "name": "acquisition",
-      "description": "Une liste de nouvelles acquisitions"
+      "name": "acquisition"
+    },
+    {
+      "name": "discipline"
     }
   ],
   "paths": {
@@ -65,7 +67,11 @@
         "operationId": "getNacq",
         "summary": "Retourne une liste de nouvelles acquistions",
         "description": "Trouve des nouvelles acquisitions en filtrant par limite, discipline ou période.\n",
-        "x-internal": true
+        "x-internal": true,
+        "tags": [
+          "acquisition",
+          "discipline"
+        ]
       }
     },
     "/about": {
@@ -117,7 +123,10 @@
         "summary": "Retourne un fil RSS de nouvelles acquisitions pour une discipline donné",
         "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}.{format}`**\n\nRetourne un fil RSS d'une liste d'acquisitions pour une discipline donnée.",
         "operationId": "getByDisciplineOldRSS",
-        "deprecated": true
+        "deprecated": true,
+        "tags": [
+          "discipline"
+        ]
       },
       "parameters": [
         {
@@ -164,7 +173,10 @@
             "$ref": "#/components/parameters/periode"
           }
         ],
-        "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}`**\n\nRetourne une liste d'acquisitions pour une discipline donnée."
+        "description": "**[OBSOLÈTE] Utilisez plutôt `/disciplines/{discipline}`**\n\nRetourne une liste d'acquisitions pour une discipline donnée.",
+        "tags": [
+          "discipline"
+        ]
       }
     },
     "/disciplines/{discipline}.{format}": {
@@ -191,7 +203,10 @@
         },
         "summary": "Retourne un fil RSS de nouvelles acquisitions pour une discipline donné",
         "description": "Retourne un fil RSS d'une liste d'acquisitions pour une discipline donnée.",
-        "operationId": "getByDisciplineRSS"
+        "operationId": "getByDisciplineRSS",
+        "tags": [
+          "discipline"
+        ]
       },
       "parameters": [
         {
@@ -233,7 +248,10 @@
         },
         "summary": "Retourne une liste de nouvelles acquisitions pour une discipline donné",
         "description": "Retourne une liste d'acquisitions pour une discipline donnée.",
-        "operationId": "getByDiscipline"
+        "operationId": "getByDiscipline",
+        "tags": [
+          "discipline"
+        ]
       },
       "parameters": [
         {
