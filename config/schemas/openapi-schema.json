@@ -87,13 +87,13 @@
         "responses": {
           "200": {
             "content": {
-              "text/plain": {
+              "text/html": {
                 "schema": {
                   "type": "string"
                 },
                 "examples": {
                   "Example 1": {
-                    "value": "api-acquisitions v4.0.0 (development)"
+                    "value": "<pre>api-acquisitions v4.0.0 (development)\n<p><a href=\"api-doc\">Documentation</a> | <a href=\"https://github.com/bibudem/api-acquisitions\">Sources</a></p></pre>"
                   }
                 }
               }
