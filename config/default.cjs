@@ -6,7 +6,6 @@ const disciplinesByCreator = require('./disciplines-by-creator')
 const locale = 'fr-CA'
 
 module.exports = {
-	disciplines,
 	apiBaseUrl: 'https://api.bib.umontreal.ca/acquisitions',
 	urlPermalienCatalogue: 'https://umontreal.on.worldcat.org/oclc/',
 	oclcNumbersFilePath: join(__dirname, '..', 'data', 'nacq_global'),
@@ -15,7 +14,7 @@ module.exports = {
 	nacqsTtl: 120,
 	log: {
 		dir: 'logs',
-		level: 'info'
+		level: 'log'
 	},
 	httpClient: {
 		proxy: 'http://mandataire.ti.umontreal.ca:80'
@@ -42,5 +41,6 @@ module.exports = {
 			useCache: true
 		},
 	},
+	disciplines,
 	disciplinesByCreator,
 }

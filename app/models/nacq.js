@@ -12,12 +12,6 @@ const sort = {
     datenouveaute: -1
 }
 
-function addedDate() {
-    const today = new Date()
-    today.setUTCHours(0, 0, 0, 0)
-    return today
-}
-
 function periode2Date(periode) {
     const date = new Date();
     date.setDate(date.getDate() - periode);
@@ -69,13 +63,11 @@ export class Nacq {
 
         ]
 
-        console.log('aggregation: ', aggregation)
-
         return await nacqs.aggregate(aggregation).toArray()
     }
 
     static async upsert(nacq) {
-        // nacq.datenouveaute = addedDate()
+
         nacq.datederniermiseajour = new Date()
 
         return await nacqs.updateOne({ id: nacq.id }, { $set: nacq }, { upsert: true })

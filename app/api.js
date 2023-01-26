@@ -5,14 +5,15 @@ import { getAbout } from './controllers/about.controller.js'
 import { getNacq } from './controllers/nacq.controller.js'
 import { getIcon } from './controllers/icon.controller.js'
 import { getListeDisciplines } from './controllers/disciplines.controller.js'
-import { errorMiddleware, responseValidationHandler } from './middlewares/error.middleware.js'
+import { errorMiddleware } from './middlewares/error.middleware.js'
+import { responseValidationMiddleware } from './middlewares/response-validation.middleware.js'
 
 export async function initializeApi(app) {
   await initialize({
     apiDoc: {
       ...apiSchema,
       'x-express-openapi-additional-middleware': [
-        responseValidationHandler
+        responseValidationMiddleware
       ],
       'x-express-openapi-validation-strict': true
     },

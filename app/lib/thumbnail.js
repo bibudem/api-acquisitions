@@ -64,23 +64,33 @@ async function fetchThumbnailLinkFromSyndetics(isbn) {
 
 // return urls de l'image de la couverture (3 formats?)
 export async function fetchThumbnailLinkFromGoogleBooksApi(isbn) {
-  const url = new URL('https://www.googleapis.com/books/v1/volumes?projection=lite&country=CA')
+  // const url = new URL('https://www.googleapis.com/books/v1/volumes?projection=lite&country=CA')
+  // url.searchParams.set('q', `isbn:${isbn}`)
+  // url.searchParams.set('apiKey', config.get('googleBooksApi.key'))
+
+  const url = new URL('https://www.googleapis.com/books/v1/volumes?country=CA')
   url.searchParams.set('q', `isbn:${isbn}`)
+  url.searchParams.set('fields', 'totalItems,items(volumeInfo/imageLinks/smallThumbnail)')
   url.searchParams.set('apiKey', config.get('googleBooksApi.key'))
+
   try {
+    // console.log('Querying Google Books API...')
     const res = await axios.get(url);
-    if ((res.status == 200) && (res.data.totalItems == 1) && (res.data.items[0].volumeInfo) && (res.data.items[0].volumeInfo.imageLinks)) {
+    if (res.status === 200 && res.data.totalItems === 1) {
+      console.log(JSON.stringify(res.data, null, 2))
+    }
+    if (res.status === 200 && res.data.totalItems === 1 && res.data.items?.[0]?.volumeInfo?.imageLinks) {
       let lien = res.data.items[0].volumeInfo.imageLinks.smallThumbnail;
-      if (lien.indexOf("http://") != -1) {
+      if (lien.indexOf("http://") !== -1) {
         lien = lien.replace("http://", "https://")
       }
       return lien;
     }
-    return undefined;
+    return null;
 
   } catch (error) {
-    console.error('Erreur function fetchThumbnailLinkFromGoogleBooksApi - isbn = ' + isbn + ' erreur: ', error)
-    return undefined;
+    console.error('Error fetching Google Books API with isbn = ' + isbn + ' : ', error)
+    return null;
   }
 }
 

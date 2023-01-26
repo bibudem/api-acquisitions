@@ -24,4 +24,5 @@ node_modules/
 
 # Local files
 config/local*
+!config/*.EXAMPLE.*
 data

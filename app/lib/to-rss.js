@@ -9,7 +9,6 @@ const API_BASE_URL = config.get('apiBaseUrl')
 export function toRSS(disciplineKey, posts) {
   const headers = Object.assign({}, config.get('rss.headers'))
   const singleDiscipline = typeof disciplineKey === 'string'
-  console.log(typeof disciplineKey)
 
   headers.title = `Nouveautés${singleDiscipline ? ` en ${DISCIPLINES.find(d => d.key === disciplineKey).label.toLowerCase()}` : ``}${config.get('rss.titleSuffix')}`
   headers.pubDate = (new Date()).toISOString()
