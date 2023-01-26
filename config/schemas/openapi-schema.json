@@ -293,13 +293,13 @@
         "description": "Retourne un fichier icône au format png."
       }
     },
-    "/types/{old-icon}.png": {
+    "/types/{oldIcon}.png": {
       "parameters": [
         {
           "schema": {
             "type": "string"
           },
-          "name": "old-icon",
+          "name": "oldIcon",
           "in": "path",
           "required": true
         }
