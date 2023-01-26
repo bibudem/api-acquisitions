@@ -293,6 +293,35 @@
         "description": "Retourne un fichier icône au format png."
       }
     },
+    "/types/{old-icon}.png": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "old-icon",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retourne une icône d'un type de document",
+        "tags": [
+          "Fichier icône"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ImageFileResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/RequestValidationError"
+          }
+        },
+        "operationId": "getOldIcon",
+        "description": "Retourne un fichier icône au format png.",
+        "deprecated": true
+      }
+    },
     "/liste/disciplines": {
       "get": {
         "summary": "Retourne la liste des codes de disciplines",
