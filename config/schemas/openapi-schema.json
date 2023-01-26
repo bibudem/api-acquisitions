@@ -297,7 +297,16 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "icon_audio",
+              "icon_image",
+              "icon_journal",
+              "icon_livre",
+              "icon_other",
+              "icon_score",
+              "icon_video"
+            ]
           },
           "name": "oldIcon",
           "in": "path",
