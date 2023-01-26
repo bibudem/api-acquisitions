@@ -33,6 +33,7 @@ export async function initializeApi(app) {
       getByDisciplineRSS: getNacq,
       getListeDisciplines,
       getIcon,
+      getOldIcon: getIcon
     }
   })
 }
