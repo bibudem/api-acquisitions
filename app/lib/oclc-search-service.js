@@ -4,7 +4,7 @@ import axios from 'axios'
 import { AccessToken } from './access-token.js'
 import console from './console.js'
 
-const wskey = config.get('oclcSearchAPIKey');
+const wskey = config.get('oclcApi.search');
 
 export class OclcSearchService {
   constructor({
@@ -27,7 +27,7 @@ export class OclcSearchService {
 
     return new Promise(async (resolve, reject) => {
 
-      const url = new URL(this.url.href) // clone this.url
+      const url = new URL(this.url) // clone this.url
       url.pathname += `/bibs/${oclcNumber}`;
 
       try {
@@ -144,7 +144,6 @@ export class OclcSearchService {
 //
 
 import isMain from 'is-main'
-import { getOclcNumbersFromFile } from '../models/nacq.js'
 
 if (isMain(import.meta)) {
   (async () => {

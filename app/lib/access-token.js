@@ -6,7 +6,8 @@ import config from 'config'
 
 import console from './console.js'
 
-const authConfig = config.get('oclcAuth')
+const authConfig = config.get('oclcApi.auth')
+const scimApi = config.get('oclcApi.scim')
 
 function wait(n) {
   return new Promise(resolve => {
@@ -18,14 +19,13 @@ export class AccessToken {
   constructor({
     grantType = 'client_credentials',
     scope,
-    wskey = config.get('oclcScimAPIKey.key'),
-    wskeySecret = config.get('oclcScimAPIKey.secret'),
+    wskey = scimApi.key,
+    wskeySecret = scimApi.secret,
     tokenHost = 'https://oauth.oclc.org',
     tokenPath = '/token',
     expiresAt = null,
     authenticatingInstitutionId = null,
-    contextInstitutionId = null,
-    httpClientTimeout = config.get('httpClient.timeout')
+    contextInstitutionId = null
   } = {}) {
     this.grantType = grantType;
     this.tokenHost = tokenHost;
@@ -39,7 +39,6 @@ export class AccessToken {
     this.authenticatingInstitutionId = authenticatingInstitutionId;
     this.contextInstitutionId = contextInstitutionId;
     this.tokenType = null;
-    this.httpClientTimeout = httpClientTimeout;
     this.cache = new Cache({
       capacity: 1
     })
@@ -64,7 +63,6 @@ export class AccessToken {
           username: this.wskey,
           password: this.wskeySecret
         },
-        timeout: this.httpClientTimeout,
         proxy: false
       })
         .then(response => {
@@ -75,7 +73,7 @@ export class AccessToken {
           if (response.status === 200) {
             // Success
 
-            if (config.get('oclcAPI.useCache') && typeof this.cache.get('token') === 'undefined') {
+            if (authConfig.useCache && typeof this.cache.get('token') === 'undefined') {
               this.cache.put('token', new Promise((resolve) => { resolve(data) }), ((data.expiresIn - 60) * 1000) || 10 * 60 * 1000);
             }
 
@@ -202,7 +200,6 @@ if (isMain(import.meta)) {
       else {
         console.log(`Round ${trial}`)
 
-        // const t = new AccessToken({ scope: ['configPlatform context:263683', 'WorldCatMetadataAPI', 'refresh_token'] })
         const t = new AccessToken({
           scope: ['SCIM']
         })

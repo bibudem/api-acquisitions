@@ -1,0 +1,166 @@
+{
+  "openapi": "3.0.3",
+  "x-stoplight": {
+    "id": "ms00kxv5cxwml"
+  },
+  "info": {
+    "title": "errors",
+    "version": "1.0",
+    "contact": {
+      "name": "Christian Rémillard",
+      "email": "christian.remillard@umontreal.ca",
+      "url": "https://github.com/bibudem/api-acquisitions"
+    },
+    "license": {
+      "url": "https://raw.githubusercontent.com/bibudem/api-acquisitions/main/LICENSE",
+      "name": "MIT"
+    }
+  },
+  "servers": [],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Details": {
+        "title": "Details",
+        "x-stoplight": {
+          "id": "u0h2on1qqh19r"
+        },
+        "type": [
+          "object",
+          "array",
+          "string"
+        ]
+      },
+      "HttpStatusCode": {
+        "title": "HttpStatusCode",
+        "x-stoplight": {
+          "id": "2crrgicw2abu9"
+        },
+        "type": "integer",
+        "example": 200,
+        "description": ""
+      },
+      "ResponseValidationError": {
+        "title": "ResponseValidationErrorError",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "path",
+          "errorCode"
+        ],
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "b23cfa2959cb4"
+        }
+      },
+      "ResponseError": {
+        "title": "ResponseError",
+        "x-stoplight": {
+          "id": "pkvkjla9n6wsw"
+        },
+        "type": "object",
+        "description": "A response error",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/ResponseValidationError"
+            }
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
+      },
+      "InternalError": {
+        "title": "InternalError",
+        "type": "object",
+        "description": "A response describing an internal (server) error",
+        "x-stoplight": {
+          "id": "7c9da95ee8caf"
+        },
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "$ref": "#/components/schemas/Details"
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
+      },
+      "RequestError": {
+        "title": "RequestError",
+        "x-stoplight": {
+          "id": "ltwmxwoex3cv3"
+        },
+        "type": "object",
+        "description": "A request error",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "$ref": "#/components/schemas/Details"
+          }
+        },
+        "required": [
+          "status",
+          "message",
+          "details"
+        ]
+      },
+      "Status": {
+        "title": "Status",
+        "x-stoplight": {
+          "id": "mmiy3nf8hsog9"
+        },
+        "type": "string",
+        "enum": [
+          "success",
+          "fail",
+          "error"
+        ],
+        "example": "success",
+        "description": "An error response status string"
+      }
+    }
+  }
+}
