@@ -44,7 +44,6 @@ export function errorMiddleware(error, req, res, next) {
 export function defaultJSONHandler(req, res, next) {
   // Final response handler
 
-  console.log('env: ', req.app.get('env'))
   const url = new URL(req.originalUrl, `${config.get('apiBaseUrl')}/`)
   res.status(404).json({
     status: 404,
