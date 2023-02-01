@@ -1,3 +1,5 @@
+
+import config from 'config'
 import { Nacq } from '../models/nacq.js'
 import { toRSS } from '../lib/to-rss.js'
 
@@ -13,7 +15,8 @@ export async function getNacq(req, res, next) {
       return res.json(result)
     }
 
-    const rss = toRSS(discipline, result)
+    const feedUrl = config.get('apiBaseUrl') + req.url
+    const rss = toRSS(discipline, feedUrl, result)
 
     // RSS format
     res.set('Content-Type', 'application/rss+xml').send(rss)

@@ -4,16 +4,15 @@ import config from 'config'
 const longDateFormat = new Intl.DateTimeFormat(config.get('locale'), { dateStyle: 'long', timeZone: config.get('timeZone') })
 
 const DISCIPLINES = config.get('disciplines').keys
-const API_BASE_URL = config.get('apiBaseUrl')
 
-export function toRSS(disciplineKey, posts) {
+export function toRSS(disciplineKey, feedUrl, posts) {
   const headers = Object.assign({}, config.get('rss.headers'))
   const singleDiscipline = typeof disciplineKey === 'string'
-
+  console.log('feedUrl: ', feedUrl)
   headers.title = `Nouveautés${singleDiscipline ? ` en ${DISCIPLINES.find(d => d.key === disciplineKey).label.toLowerCase()}` : ``}${config.get('rss.titleSuffix')}`
   headers.pubDate = (new Date()).toISOString()
   headers.site_url = singleDiscipline ? `${headers.site_url}/${disciplineKey}/nouveautes` : headers.site_url
-  headers.feed_url = singleDiscipline ? `${API_BASE_URL}/disciplines/${disciplineKey}.rss` : `${API_BASE_URL}/${Array.isArray(disciplineKey) ? disciplineKey.map(key => `discipline=${key}`).join('&') : ''}`
+  headers.feed_url = feedUrl
 
   const rss = new RSS(headers)
 
