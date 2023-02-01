@@ -8,7 +8,7 @@ const DISCIPLINES = config.get('disciplines').keys
 export function toRSS(disciplineKey, feedUrl, posts) {
   const headers = Object.assign({}, config.get('rss.headers'))
   const singleDiscipline = typeof disciplineKey === 'string'
-  console.log('feedUrl: ', feedUrl)
+
   headers.title = `Nouveautés${singleDiscipline ? ` en ${DISCIPLINES.find(d => d.key === disciplineKey).label.toLowerCase()}` : ``}${config.get('rss.titleSuffix')}`
   headers.pubDate = (new Date()).toISOString()
   headers.site_url = singleDiscipline ? `${headers.site_url}/${disciplineKey}/nouveautes` : headers.site_url
