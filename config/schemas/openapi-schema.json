@@ -5,7 +5,7 @@
   },
   "info": {
     "title": "API des nouvelles acquisitions",
-    "version": "4.0.0",
+    "version": "1.0.0",
     "description": "API REST pour les nouvelles acquisitions des Bibliothèques de l'Université de Montréal",
     "contact": {
       "name": "Christian Rémillard",
@@ -83,31 +83,7 @@
       }
     },
     "/about": {
-      "get": {
-        "responses": {
-          "200": {
-            "content": {
-              "text/html": {
-                "schema": {
-                  "type": "string"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": "<pre>api-acquisitions v4.0.0 (development)\n<p><a href=\"api-doc\">Documentation</a> | <a href=\"https://github.com/bibudem/api-acquisitions\">Sources</a></p></pre>"
-                  }
-                }
-              }
-            },
-            "description": "Ok"
-          }
-        },
-        "operationId": "getAbout",
-        "description": "Affiche le nom, la version et l'environnement d'exécution de l'API",
-        "summary": "Retourne des informations à propos de l'API",
-        "tags": [
-          "À propos"
-        ]
-      }
+      "$ref": "https://raw.githubusercontent.com/bibudem/api-communs/main/src/about.json#/paths/~1about"
     },
     "/discipline/{discipline}.{format}": {
       "summary": "Liste les nouvelles acquisitions pour une discipline",
@@ -666,7 +642,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "errors.json#/components/schemas/RequestError"
+              "$ref": "https://raw.githubusercontent.com/bibudem/api-communs/main/src/errors.json#/components/schemas/RequestError"
             }
           }
         },
@@ -677,7 +653,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "errors.json#/components/schemas/InternalError"
+              "$ref": "https://raw.githubusercontent.com/bibudem/api-communs/main/src/errors.json#/components/schemas/InternalError"
             }
           }
         }

@@ -4,9 +4,7 @@ import bodyParser from 'body-parser'
 import chalk from 'chalk'
 import webLogger from '@remillc/web-logger'
 import config from 'config'
-import { initializeApi } from './api.js'
-import { apiDocRouter } from './controllers/api-doc.controller.js'
-import { defaultJSONHandler } from './middlewares/error.middleware.js'
+import { apiRoutes } from './routes/api.route.js'
 
 const app = express();
 
@@ -19,11 +17,7 @@ app.use(webLogger({
   logDirectory: config.get('log.dir')
 }));
 
-app.use(apiDocRouter)
-
-initializeApi(app)
-
-app.use(defaultJSONHandler)
+app.use(apiRoutes)
 
 /**
  * Start Express server.
