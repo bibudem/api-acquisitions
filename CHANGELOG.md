@@ -2,6 +2,13 @@
 
 Toutes les modifications notables apportées à ce projet seront documentées dans ce fichier. Consultez [standard-version](https://github.com/conventional-changelog/standard-version) pour les lignes directrices des commits.
 
+## [4.1.2](https://github.com/bibudem/api-acquisitions/compare/v4.1.1...v4.1.2) (2024-04-16)
+
+
+### Bug Fixes
+
+* Throttle pour les requêtes sur Google Boolk API pour éviter des refus causés par un trop grand nombre de requêtes ([0adb257](https://github.com/bibudem/api-acquisitions/commit/0adb2573fa6695d5d7c63b01bbf2d92fb7c93ddf))
+
 ## [4.1.1](https://github.com/bibudem/api-acquisitions/compare/v4.1.0...v4.1.1) (2024-04-16)
 
 
