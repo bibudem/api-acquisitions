@@ -4,7 +4,7 @@ import axios from 'axios'
 import { AccessToken } from './access-token.js'
 import console from './console.js'
 
-const wskey = config.get('oclcApi.search');
+const wskey = config.get('oclcApi.search')
 
 export class OclcSearchService {
   constructor({
@@ -12,15 +12,15 @@ export class OclcSearchService {
     key,
     secret,
   } = {}) {
-    this.url = new URL(serviceUrl);
+    this.url = new URL(serviceUrl)
 
-    this.key = key;
-    this.secret = secret;
+    this.key = key
+    this.secret = secret
     this.accessToken = new AccessToken({
       scope: ['SCIM', 'wcapi'],
       wskey: wskey.key,
       wskeySecret: wskey.secret
-    });
+    })
   }
 
   async getBibRecordByOclcNumber(oclcNumber) {
@@ -28,10 +28,10 @@ export class OclcSearchService {
     return new Promise(async (resolve, reject) => {
 
       const url = new URL(this.url) // clone this.url
-      url.pathname += `/bibs/${oclcNumber}`;
+      url.pathname += `/bibs/${oclcNumber}`
 
       try {
-        const bearerToken = (await this.accessToken.requestAccessToken()).accessToken;
+        const bearerToken = (await this.accessToken.requestAccessToken()).accessToken
 
         let result = await axios(
           {
@@ -40,37 +40,37 @@ export class OclcSearchService {
               Authorization: `Bearer ${bearerToken}`
             }
           }
-        );
+        )
 
-        resolve(result);
+        resolve(result)
 
       } catch (e) {
         console.error(e)
         reject(e)
       }
 
-    });
+    })
   }
 
   async getBibRecordsByOclcNumber(oclcNumbers) {
 
     return new Promise(async (resolve, reject) => {
 
-      const limit = 50;
-      const result = [];
+      const limit = 10
+      const result = []
 
       for (let i = 0; i < oclcNumbers.length; i += limit) {
         const url = new URL(this.url.href) // clone this.url
-        const oclcNumbersSlice = oclcNumbers.slice(i, i + limit);
+        const oclcNumbersSlice = oclcNumbers.slice(i, i + limit)
 
         let q = oclcNumbersSlice.map(oclcNumber => `no:(${oclcNumber})`)
-        q = q.join(' OR ');
-        url.pathname += `/bibs/`;
-        url.searchParams.set('q', q);
+        q = q.join(' OR ')
+        url.pathname += `/bibs/`
+        url.searchParams.set('q', q)
         url.searchParams.set('limit', limit)
 
         try {
-          const bearerToken = (await this.accessToken.requestAccessToken()).accessToken;
+          const bearerToken = (await this.accessToken.requestAccessToken()).accessToken
 
           console.info(`Requesting oclc numbers ${i} to ${i + limit}...`)
 
@@ -82,14 +82,14 @@ export class OclcSearchService {
               },
               proxy: false
             }
-          );
+          )
 
           if (response.status === 200) {
 
             const partialResult = response.data
 
             if (partialResult.numberOfRecords > 0) {
-              result.push(...partialResult.bibRecords);
+              result.push(...partialResult.bibRecords)
             }
           } else {
             console.error(`Failed to retrieve oclc numbers ${i} to ${i + limit}.`)
@@ -101,19 +101,19 @@ export class OclcSearchService {
 
       }
 
-      resolve(result);
+      resolve(result)
 
-    });
+    })
   }
 
   async getHoldingByOclcNumber(oclcNumber) {
 
     const url = new URL(this.url.href) // clone this.url
-    url.pathname += `/my-holdings/`;
+    url.pathname += `/my-holdings/`
     url.searchParams.set('oclcNumber', oclcNumber)
 
     try {
-      const bearerToken = (await this.accessToken.requestAccessToken()).accessToken;
+      const bearerToken = (await this.accessToken.requestAccessToken()).accessToken
 
       const result = await axios(
         {
@@ -123,7 +123,7 @@ export class OclcSearchService {
           },
           proxy: false
         }
-      );
+      )
 
       // console.debug(result)
 
@@ -131,7 +131,7 @@ export class OclcSearchService {
 
     } catch (e) {
       console.error(e)
-      return e;
+      return e
     }
 
     // });
@@ -148,10 +148,10 @@ import isMain from 'is-main'
 if (isMain(import.meta)) {
   (async () => {
 
-    const searchService = new OclcSearchService(wskey);
+    const searchService = new OclcSearchService(wskey)
 
     try {
-      const result = await searchService.getBibRecordByOclcNumber('1224186661');
+      const result = await searchService.getBibRecordByOclcNumber('1224186661')
       console.log(JSON.stringify(result, null, 2))
     } catch (e) {
       try {
