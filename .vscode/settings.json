@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "github",
-    "rss"
+    "rss",
+    "import"
   ]
 }
