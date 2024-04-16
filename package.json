@@ -1,6 +1,6 @@
 {
   "name": "api-acquisitions",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Service REST pour les nouvelles acquisitions des Bibliothèques de l'Université de Montréal",
   "type": "module",
   "scripts": {
