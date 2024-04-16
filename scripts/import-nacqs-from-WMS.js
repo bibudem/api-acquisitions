@@ -21,14 +21,14 @@ if (config.get('httpClient.proxy')) {
 }
 
 async function getOclcNumbersFromFile(filepath) {
-  const oclcNumbersRegExp = /\d+/g;
-  const result = new Set();
-  let number;
+  const oclcNumbersRegExp = /\d+/g
+  const result = new Set()
+  let number
 
   const data = await readFile(filepath)
 
   while ((number = oclcNumbersRegExp.exec(data)) !== null) {
-    result.add(number[0]);
+    result.add(number[0])
   }
 
   console.debug(`${result.size} OCLC numbers found in file.`)
@@ -36,16 +36,15 @@ async function getOclcNumbersFromFile(filepath) {
   return [...result.values()] // Creates an array of distinct values
 }
 
-
-const oclcNumbersFilePath = config.get('oclcNumbersFilePath')
-const oclcNumbers = await getOclcNumbersFromFile(oclcNumbersFilePath);
+const oclcNumbersFilePath = process.argv.length === 3 ? process.argv[2] : config.get('oclcNumbersFilePath')
+const oclcNumbers = await getOclcNumbersFromFile(oclcNumbersFilePath)
 let result
 let inserted = 0
 let updated = 0
 let failed = 0
 
 try {
-  result = await getBatchNacqsFromWMS(oclcNumbers);
+  result = await getBatchNacqsFromWMS(oclcNumbers)
 } catch (error) {
   console.error('Could not get batch nacqs from WMS. Error: ', error)
   process.exit(1)
@@ -70,7 +69,7 @@ if (result.length > 0) {
   }
 }
 
-const deleteResult = await Nacq.deleteExpired();
+const deleteResult = await Nacq.deleteExpired()
 
 await client.close()
 
