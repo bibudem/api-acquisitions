@@ -2,6 +2,13 @@
 
 Toutes les modifications notables apportées à ce projet seront documentées dans ce fichier. Consultez [standard-version](https://github.com/conventional-changelog/standard-version) pour les lignes directrices des commits.
 
+## [4.1.1](https://github.com/bibudem/api-acquisitions/compare/v4.1.0...v4.1.1) (2024-04-16)
+
+
+### Bug Fixes
+
+* **import:** L'API Search d'OCLC ne permet désormais pas plus de 10 booléens ([e22ac8e](https://github.com/bibudem/api-acquisitions/commit/e22ac8e9717b0638aa7c55009556752681b25818))
+
 ## [4.1.0](https://github.com/bibudem/api-acquisitions/compare/4.0.1...v4.1.0) (2023-02-02)
 
 
@@ -13,4 +20,4 @@ Toutes les modifications notables apportées à ce projet seront documentées da
 ### core
 
 * release 4.1.0 ([9caa1c8](https://github.com/bibudem/api-acquisitions/commit/9caa1c86aeaf5c13aaf799acf2a05d44d2ecd941))
-* 
+*
