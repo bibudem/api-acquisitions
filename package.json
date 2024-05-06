@@ -35,7 +35,7 @@
     "express-openapi": "^12.1.0",
     "is-main": "^0.4.0",
     "lodash-es": "^4.17.21",
-    "mongodb": "^4.17.0",
+    "mongodb": "^6.6.0",
     "node-global-proxy": "^1.0.1",
     "progress": "^2.0.3",
     "rss": "^1.2.2",
