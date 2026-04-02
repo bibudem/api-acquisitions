@@ -24,26 +24,26 @@
   "dependencies": {
     "@bibudem/api-communs": "^2.1.0",
     "@remillc/web-logger": "^0.1.0",
-    "axios": "^1.6.0",
-    "body-parser": "^1.20.2",
+    "axios": "^1.14.0",
+    "body-parser": "^1.20.4",
     "camel-case": "^4.1.2",
-    "chalk": "^5.2.0",
+    "chalk": "^5.6.2",
     "config": "^4.4.1",
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
     "dot-prop": "^7.2.0",
-    "express": "^4.19.2",
-    "express-openapi": "^12.1.0",
+    "express": "^4.22.1",
+    "express-openapi": "^12.1.3",
     "is-main": "^0.4.0",
-    "lodash-es": "^4.17.21",
-    "mongodb": "^4.17.0",
+    "lodash-es": "^4.18.1",
+    "mongodb": "^4.17.2",
     "node-global-proxy": "^1.0.1",
     "progress": "^2.0.3",
     "rss": "^1.2.2",
-    "sirv": "^2.0.2",
-    "tracer": "^1.1.6",
+    "sirv": "^2.0.4",
+    "tracer": "^1.3.0",
     "ttl": "^1.3.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^3.1.14"
   }
 }
