@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/bibudem/api-acquisitions",
   "engines": {
-    "node": "16.17.0"
+    "node": "24.14.0"
   },
   "dependencies": {
-    "@bibudem/api-communs": "^1.5.0",
+    "@bibudem/api-communs": "^2.1.0",
     "@remillc/web-logger": "^0.1.0",
     "axios": "^1.6.0",
     "body-parser": "^1.20.2",
