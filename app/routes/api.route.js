@@ -1,7 +1,7 @@
 import config from 'config'
 import { initializeApi } from '@bibudem/api-communs'
-import pkg from '../../package.json' assert {type: 'json'}
-import apiSchema from '../../config/schemas/openapi-schema.json' assert {type: 'json'}
+import pkg from '../../package.json' with {type: 'json'}
+import apiSchema from '../../config/schemas/openapi-schema.json' with {type: 'json'}
 import { getNacq } from '../controllers/nacq.controller.js'
 import { getIcon } from '../controllers/icon.controller.js'
 import { getListeDisciplines } from '../controllers/disciplines.controller.js'
