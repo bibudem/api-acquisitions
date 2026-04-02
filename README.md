@@ -4,6 +4,13 @@ Service REST pour les nouvelles acquisitions des Bibliothèques de l'Université
 
 https://bibudem.stoplight.io/docs/api-acquisitions
 
+## Installation
+
+1. Clôner le dépôt dans un dossier local, par exemple: `api-acquisitions`
+2. `cp config/local-environment.EXAMPLE.cjs config/local-development.cjs`
+3. Modifier le fichier `config/local-development.cjs` pour y insérer les bonnes valeurs de connexion à la base de données MongoDB
+4. `npm install`
+
 ## Pour créer un `release`
 
 Exécuter la commande suivante, en adaptant le niveau de version en fonction des commits faits depuis le dernier `release`:
