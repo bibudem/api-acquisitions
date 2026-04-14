@@ -7,56 +7,56 @@ import console from './console.js'
 export async function convertOclcBibRecordToNacq({ bibRecord, holding }) {
   const record = {}
 
-  record.id = bibRecord.identifier.oclcNumber;
-  record.titre = bibRecord.title.mainTitles[0].text;
+  record.id = bibRecord.identifier.oclcNumber
+  record.titre = bibRecord.title.mainTitles[0].text
 
   if (bibRecord.contributor?.creators) {
-    record.auteurs = getCreators(bibRecord.contributor.creators);
+    record.auteurs = getCreators(bibRecord.contributor.creators)
   }
 
-  record.url = config.get('urlPermalienCatalogue') + bibRecord.identifier.oclcNumber;
-  record.categorielivraison = getDeliveryCategory(bibRecord.format);
-  record.type = getType(bibRecord.format.generalFormat);
+  record.url = config.get('urlPermalienCatalogue') + bibRecord.identifier.oclcNumber
+  record.categorielivraison = getDeliveryCategory(bibRecord.format)
+  record.type = getType(bibRecord.format.generalFormat)
 
-  const date = getRecordDate(getProperty(bibRecord, 'bibRecord.date.createDate'));
+  const date = getRecordDate(getProperty(bibRecord, 'bibRecord.date.createDate'))
   if (date) {
-    record.date = date;
+    record.date = date
   }
 
   if (typeof bibRecord.publishers !== 'undefined') {
-    const publisher = getPublisher(bibRecord.publishers);
+    const publisher = getPublisher(bibRecord.publishers)
     if (publisher) {
-      record.editeur = publisher;
+      record.editeur = publisher
     }
   }
 
-  record.cotes = getCotes(bibRecord, holding);
+  record.cotes = getCotes(bibRecord, holding)
 
   const disciplines = getDisciplines(record.cotes, holding, bibRecord)
   if (disciplines.length == 0) {
     console.debug(`No discipline found for record ${record.url}`)
-    return null;
+    return null
   }
 
-  record.disciplines = disciplines;
+  record.disciplines = disciplines
 
   if (typeof bibRecord.description.physicalDescription !== 'undefined') {
-    record.format = bibRecord.description.physicalDescription;
+    record.format = bibRecord.description.physicalDescription
   }
   if (typeof bibRecord.summaries !== 'undefined') {
     record.descriptions = bibRecord.summaries.map(summary => summary.text)
   }
 
-  const isbns = getIsbns(bibRecord.identifier);
+  const isbns = getIsbns(bibRecord.identifier)
   if (isbns) {
-    record.isbns = isbns;
+    record.isbns = isbns
   }
 
-  record.image = await getThumbnailLink(isbns, record.type);
+  record.image = await getThumbnailLink(isbns, record.type)
 
-  record.datenouveaute = getDate();
+  record.datenouveaute = getDate()
 
-  return record;
+  return record
 }
 
 /*
@@ -65,10 +65,10 @@ export async function convertOclcBibRecordToNacq({ bibRecord, holding }) {
 function getCreators(creators) {
   return creators.map(creator => {
     if (typeof creator.nonPersonName !== 'undefined') {
-      return creator.nonPersonName.text;
+      return creator.nonPersonName.text
     }
 
-    const name = [];
+    const name = []
 
     if (typeof creator.firstName !== 'undefined') {
       name.push(creator.firstName.text)
@@ -78,7 +78,7 @@ function getCreators(creators) {
       name.push(creator.secondName.text)
     }
 
-    return name.join(' ');
+    return name.join(' ')
   })
 }
 
@@ -87,44 +87,44 @@ function getCreators(creators) {
  */
 function getDeliveryCategory(format) {
   if (typeof format.specificFormat !== 'undefined' && format.specificFormat === 'Digital') {
-    return 'en_ligne';
+    return 'en_ligne'
   }
-  return 'physique';
+  return 'physique'
 }
 
 /*
  * getType
  */
 function getType(type) {
-  let ret;
+  let ret
   switch (type) {
     case 'Book':
-      ret = "livre";
-      break;
+      ret = "livre"
+      break
     case 'Jrnl':
       ret = "périodique"
-      break;
+      break
     case 'ArtChap':
       ret = "chapitre de livre"
-      break;
+      break
     case 'Music':
       ret = "enregistrement sonore"
-      break;
+      break
     case 'Video':
       ret = "vidéo"
-      break;
+      break
     case 'MsScr':
       ret = "partition"
-      break;
+      break
     case 'Vis':
       ret = "image"
-      break;
+      break
     case 'other':
     default:
-      ret = "autre";
-      break;
+      ret = "autre"
+      break
   }
-  return ret;
+  return ret
 }
 
 /*
@@ -132,9 +132,9 @@ function getType(type) {
  */
 function getRecordDate(date) {
   if (date) {
-    return date.createDate.length === 8 ? `${date.createDate.substr(0, 4)}-${date.createDate.substr(4, 2)}-${date.createDate.substr(6, 2)}` : date.createDate;
+    return date.createDate.length === 8 ? `${date.createDate.substr(0, 4)}-${date.createDate.substr(4, 2)}-${date.createDate.substr(6, 2)}` : date.createDate
   }
-  return null;
+  return null
 }
 
 /*
@@ -142,21 +142,21 @@ function getRecordDate(date) {
  */
 function getPublisher(publishers) {
   if (typeof publishers === 'undefined') {
-    return null;
+    return null
   }
 
   const result = publishers.map(publisher => {
-    let ret = [];
+    let ret = []
     if (typeof publisher.publicationPlace !== 'undefined') {
-      ret.push(publisher.publicationPlace);
+      ret.push(publisher.publicationPlace)
     }
     if (typeof publisher.publisherName !== 'undefined') {
-      ret.push(publisher.publisherName.text);
+      ret.push(publisher.publisherName.text)
     }
-    return ret.length > 0 ? ret.join(' ') : null;
+    return ret.length > 0 ? ret.join(' ') : null
   })
 
-  return result[0];
+  return result[0]
 }
 
 /*
@@ -164,10 +164,10 @@ function getPublisher(publishers) {
  */
 const getCotes = function (bibRecord, holdings) {
   try {
-    const cotes = new Set();
+    const cotes = new Set()
     if (holdings.numberOfHoldings > 0) {
       holdings.detailedHoldings.forEach(holding => {
-        const cote = getProperty(holding, 'callNumber.displayCallNumber');
+        const cote = getProperty(holding, 'callNumber.displayCallNumber')
         if (cote) {
           cotes.add(cote)
         }
@@ -179,13 +179,13 @@ const getCotes = function (bibRecord, holdings) {
     }
 
     if (hasProperty(bibRecord, 'classification.lc')) {
-      return [bibRecord.classification.lc];
+      return [bibRecord.classification.lc]
     }
 
-    return [];
+    return []
   } catch (e) {
     console.error(e)
-    return [];
+    return []
   }
 }
 
@@ -195,15 +195,15 @@ const getCotes = function (bibRecord, holdings) {
 const getDisciplines = function (cotes, holding, bibRecord) {
 
   const disciplines = new Set()
-  let discipline = null;
+  let discipline = null
 
   /*
    * getNormalizedCote
    */
   function getNormalizedCote(cote) {
     // On supprime les espaces et les points de la cote.
-    cote = cote.replace(/ /g, '');
-    cote = cote.replace(/\./g, '');
+    cote = cote.replace(/ /g, '')
+    cote = cote.replace(/\./g, '')
     // Tous les caractères en majuscules.
     return cote.toUpperCase()
   }
@@ -214,24 +214,24 @@ const getDisciplines = function (cotes, holding, bibRecord) {
   function getDisciplineByCoteLC(c) {
 
     function hasMore3AlphaBeginingCharacters(cote) {
-      let regex = /^[A-Z]{4}/g;
+      let regex = /^[A-Z]{4}/g
       let match = cote.match(regex)
-      return (match != null) && match.length > 0;
+      return (match != null) && match.length > 0
     }
 
     function getOnlyOneLetter(cote) {
-      let myRegexp = /^([A-Z])$/g;
-      let match = myRegexp.exec(cote);
+      let myRegexp = /^([A-Z])$/g
+      let match = myRegexp.exec(cote)
       return match ? match[1] : null
     }
 
     function getFirstLetterBeforeNumber(cote) {
-      let myRegexp = /^([A-Z])[0-9.]/g;
-      let match = myRegexp.exec(cote);
+      let myRegexp = /^([A-Z])[0-9.]/g
+      let match = myRegexp.exec(cote)
       return match ? match[1] : null
     }
 
-    let discipline = undefined;
+    let discipline = undefined
     let cote = getNormalizedCote(c)
 
     // Cote maison
@@ -242,14 +242,27 @@ const getDisciplines = function (cotes, holding, bibRecord) {
     let firstLetterBeforeNumber = getFirstLetterBeforeNumber(cote)
     let firstChar = cote.substring(0, 1)
     let first2Chars = cote.substring(0, 2)
+    let first4chars = cote.substring(0, 4)
+    let first5Chars = cote.substring(0, 5)
+    let first6Chars = cote.substring(0, 6)
     let onlyOneLetter = getOnlyOneLetter(cote)
 
     // amenagement 
     if (
+      first2Chars == "HC" ||
+      first5Chars == "HT390" ||
+      first2Chars == "QK" ||
       first2Chars == "NA" ||
       first2Chars == "NK" ||
-      first2Chars == "SB" ||
-      first2Chars == "TH"
+      first6Chars == "S494.5" ||
+      (first4chars >= "SB39" && first4chars <= "SB55") ||
+      first5Chars == "SB111" ||
+      first5Chars == "SB317" ||
+      first5Chars == "SB325" ||
+      (first5Chars >= "SB419" && first5Chars <= "SB603") ||
+      first5Chars == "SB938" ||
+      first2Chars == "TH" ||
+      first5Chars == "TS170"
     ) {
       return "amenagement"
     }
@@ -388,17 +401,17 @@ const getDisciplines = function (cotes, holding, bibRecord) {
       return "sciences-sante"
     }
 
-    return discipline;
+    return discipline
   }
 
   /*
    * getDisciplineByHoldings
    */
   function getDisciplineByHoldings(holdings) {
-    const availability = [];
+    const availability = []
 
     function sublocationEquals(holding, value) {
-      return typeof holding.location.sublocationCollection !== 'undefined' && holding.location.sublocationCollection === value;
+      return typeof holding.location.sublocationCollection !== 'undefined' && holding.location.sublocationCollection === value
     }
 
     if (holdings && holdings.numberOfHoldings > 0) {
@@ -406,35 +419,35 @@ const getDisciplines = function (cotes, holding, bibRecord) {
 
         if (sublocationEquals(holding, 'JEU-R') || sublocationEquals(holding, 'DIC') ||
           sublocationEquals(holding, 'DIM') || sublocationEquals(holding, 'BMUS')) {
-          availability.push('art-cinema-musique');
+          availability.push('art-cinema-musique')
         }
         if (sublocationEquals(holding, 'BDRO')) {
-          availability.push('droit');
+          availability.push('droit')
         }
         if (sublocationEquals(holding, 'JEU-H')) {
-          availability.push('etudes-religieuses-histoire-philosophie');
+          availability.push('etudes-religieuses-histoire-philosophie')
         }
         if (sublocationEquals(holding, 'JEU-M') || sublocationEquals(holding, 'BCHI') ||
           sublocationEquals(holding, 'BMAI') || sublocationEquals(holding, 'BGEO') ||
           sublocationEquals(holding, 'BPHY') || sublocationEquals(holding, 'JEU-S')
         ) {
-          availability.push('informatique-mathematique-sciences-nature');
+          availability.push('informatique-mathematique-sciences-nature')
         }
         if (sublocationEquals(holding, 'JEU-F')) {
-          availability.push('langues-litteratures');
+          availability.push('langues-litteratures')
         }
         if (sublocationEquals(holding, 'DID') || sublocationEquals(holding, 'DIDJE') ||
           sublocationEquals(holding, 'DIDJA') || sublocationEquals(holding, 'JEU')) {
-          availability.push('education-psychoeducation');
+          availability.push('education-psychoeducation')
         }
         if (sublocationEquals(holding, 'BMDV') || sublocationEquals(holding, 'BPAR') || sublocationEquals(holding, 'BSAN')) {
-          availability.push('sciences-sante');
+          availability.push('sciences-sante')
         }
         if (sublocationEquals(holding, 'BAME')) {
-          availability.push('amenagement');
+          availability.push('amenagement')
         }
       })
-      return availability;
+      return availability
     }
     return undefined
   }
@@ -459,12 +472,12 @@ const getDisciplines = function (cotes, holding, bibRecord) {
     // console.log('== has creators')
     const creatorNotes = bibRecord.contributor.creators
       .filter(creator => {
-        return typeof creator.creatorNotes !== 'undefined';
+        return typeof creator.creatorNotes !== 'undefined'
       })
-      .map(creator => creator.creatorNotes);
+      .map(creator => creator.creatorNotes)
 
     if (creatorNotes.length > 0) {
-      const disciplinesByCreatorNotes = creatorNotes.map(DSpaceConverter.getDisciplineByCreator).filter(d => d !== undefined);
+      const disciplinesByCreatorNotes = creatorNotes.map(DSpaceConverter.getDisciplineByCreator).filter(d => d !== undefined)
       // console.log(bibRecord.identifier.oclcNumber)
       // console.log(disciplinesByCreatorNotes)
       if (disciplinesByCreatorNotes.length > 0) {
@@ -483,7 +496,7 @@ function getIsbns(identifier) {
   if (typeof identifier.isbns === 'undefined') {
     return undefined
   }
-  return identifier.isbns;
+  return identifier.isbns
 }
 
 /*
@@ -492,5 +505,5 @@ function getIsbns(identifier) {
 function getDate() {
   const today = new Date()
   today.setUTCHours(0, 0, 0, 0)
-  return today;
+  return today
 }
