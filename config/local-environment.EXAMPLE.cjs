@@ -1,10 +1,10 @@
 const { join } = require('path')
 
-const mongoDBPort = '123'
-const mongoDBHostname = 'localhost'
-const mongoDBUser = 'user'
-const mongoDBPw = 'pwd'
-const mongoDBDBName = 'nacq'
+const MONGODB_PORT = '27017'
+const MONGODB_HOSTNAME = '127.0.0.1'
+const MONGODB_USER_NAME = 'user'
+const MONGODB_USER_PWD = 'pwd'
+const MONGODB_DB_NAME = 'nacq'
 
 module.exports = {
   apiBaseUrl: 'https://api.example.com/acquisitions',
@@ -20,8 +20,8 @@ module.exports = {
   },
   oclcNumbersFilePath: join(__dirname, '..', 'data', 'some-file-with-oclc-numbers'),
   mongodb: {
-    url: `mongodb://${mongoDBUser}:${mongoDBPw}@${mongoDBHostname}:${mongoDBPort}/?authSource=${mongoDBDBName}`,
-    dbName: mongoDBDBName
+    url: `mongodb://${MONGODB_USER_NAME}:${encodeURIComponent(MONGODB_USER_PWD)}@${MONGODB_HOSTNAME}:${MONGODB_PORT}/?authSource=${MONGODB_DB_NAME}`,
+    dbName: MONGODB_DB_NAME
   },
   oclcApi: {
     scim: {

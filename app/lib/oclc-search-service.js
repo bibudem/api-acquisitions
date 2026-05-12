@@ -69,12 +69,14 @@ export class OclcSearchService {
         url.searchParams.set('q', q)
         url.searchParams.set('limit', limit)
 
+        let response
+
         try {
           const bearerToken = (await this.accessToken.requestAccessToken()).accessToken
 
           console.info(`Requesting oclc numbers ${i} to ${i + limit}...`)
 
-          const response = await axios(
+          response = await axios(
             {
               url: url.href,
               headers: {
@@ -95,7 +97,7 @@ export class OclcSearchService {
             console.error(`Failed to retrieve oclc numbers ${i} to ${i + limit}.`)
           }
         } catch (e) {
-          console.error(e)
+          console.error('Failed to request oclc numbers. %s', e)
           reject(e)
         }
 

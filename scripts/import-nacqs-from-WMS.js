@@ -13,11 +13,13 @@ const proxy = nodeGlobalProxyModule.default
 
 if (config.get('httpClient.proxy')) {
 
-  console.debug('Using proxy settings')
+  console.debug('Using proxy settings (%s)', config.get('httpClient.proxy'))
 
   proxy.setConfig(config.get('httpClient.proxy'))
   proxy.start()
 
+} else {
+  console.debug('No proxy configured.')
 }
 
 async function getOclcNumbersFromFile(filepath) {
