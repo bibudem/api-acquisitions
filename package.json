@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/bibudem/api-acquisitions",
   "engines": {
-    "node": "24.14.0"
+    "node": "16.17.0"
   },
   "dependencies": {
     "@bibudem/api-communs": "^2.1.0",
